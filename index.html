@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>בדיקת תאימות eSIM</title>
+  <style>
+    body {
+      font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+      background: #f4f4f4;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+    }
+    .card {
+      background: #fff;
+      width: 100%;
+      max-width: 400px;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 18px rgba(0,0,0,0.1);
+    }
+    h1 {
+      margin-top: 0;
+      font-size: 24px;
+      text-align: center;
+    }
+    .row {
+      margin-bottom: 12px;
+      font-size: 16px;
+    }
+    .label {
+      font-weight: bold;
+    }
+    .chip {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 12px;
+      margin-top: 5px;
+    }
+    .yes { background: #e7f9e7; color: #147114; }
+    .no { background: #ffe6e6; color: #b20000; }
+    .maybe { background: #fff3d4; color: #664d00; }
+    .ua-box {
+      direction: ltr;
+      font-size: 11px;
+      color: #888;
+      background: #f7f7f7;
+      padding: 10px;
+      border-radius: 6px;
+      margin-top: 15px;
+      white-space: normal;
+      word-wrap: break-word;
+    }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <h1>בדיקת תאימות מכשיר ל-eSIM</h1>
+
+  <div class="row"><span class="label">יצרן משוער:</span> <span id="brand"></span></div>
+  <div class="row"><span class="label">דגם משוער:</span> <span id="model"></span></div>
+  <div class="row"><span class="label">מערכת הפעלה:</span> <span id="os"></span></div>
+
+  <div class="row">
+    <span class="label">תמיכת eSIM:</span>
+    <span id="esim" class="chip"></span>
+  </div>
+
+  <div class="row">
+    <span class="label">תמיכת 5G:</span>
+    <span id="fiveg" class="chip"></span>
+  </div>
+
+  <div class="ua-box" id="ua"></div>
+</div>
+
+<script>
+  const db = [
+    { regex: /iPhone/, brand: "Apple", model: "iPhone", os: "iOS", esim: "yes", fiveg: "maybe" },
+    { regex: /SM-S9|SM-S90|SM-S91|SM-S92/, brand: "Samsung", model: "Galaxy S series", os: "Android", esim: "yes", fiveg: "yes" },
+    { regex: /Xiaomi 1[34]/, brand: "Xiaomi", model: "Xiaomi 13/14", os: "Android", esim: "yes", fiveg: "yes" },
+    { regex: /POCO X|POCO F/, brand: "POCO", model: "POCO series", os: "Android", esim: "maybe", fiveg: "yes" },
+  ];
+
+  function updateChip(element, status) {
+    element.classList.remove("yes", "no", "maybe");
+    element.classList.add(status);
+    element.textContent =
+      status === "yes" ? "תומך" :
+      status === "no" ? "לא תומך" :
+      "דורש בדיקה";
+  }
+
+  function detect() {
+    const ua = navigator.userAgent;
+    document.getElementById("ua").textContent = ua;
+
+    let brand = "לא זוהה";
+    let model = "לא זוהה";
+    let os = "לא זוהתה";
+    let esim = "maybe";
+    let fiveg = "maybe";
+
+    if (/Android/i.test(ua)) os = "Android";
+    if (/iPhone|iPad|iPod/i.test(ua)) os = "iOS";
+
+    for (const device of db) {
+      if (device.regex.test(ua)) {
+        brand = device.brand;
+        model = device.model;
+        os = device.os;
+        esim = device.esim;
+        fiveg = device.fiveg;
+        break;
+      }
+    }
+
+    document.getElementById("brand").textContent = brand;
+    document.getElementById("model").textContent = model;
+    document.getElementById("os"
