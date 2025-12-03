@@ -176,18 +176,48 @@
     // note: טקסט עזר
 
     const deviceDb = [
-      // ===== APPLE =====
-      { brand: 'apple', modelKey: 'IPHONEXR',  displayName: 'iPhone XR',                     region: 'GLOBAL', esim: true,  note: 'תומך eSIM בכל השווקים למעט סין/הונג קונג.' },
-      { brand: 'apple', modelKey: 'IPHONEXR',  displayName: 'iPhone XR – דגם סין/הונג קונג', region: 'CN',     esim: false, note: 'דגם סין/הונג קונג ללא eSIM (2x SIM פיזי).' },
+          // ===== APPLE =====
+    // iPhone X – אין eSIM
+    { brand: 'apple', modelKey: 'IPHONEX',  displayName: 'iPhone X',                                 region: 'GLOBAL', esim: false, note: 'iPhone X אינו תומך ב-eSIM.' },
 
-      { brand: 'apple', modelKey: 'IPHONE11',  displayName: 'iPhone 11 / 11 Pro / 11 Pro Max (גלובלי)', region: 'GLOBAL', esim: true,  note: 'כל דגמי iPhone 11 הגלובליים תומכים eSIM.' },
-      { brand: 'apple', modelKey: 'IPHONE11',  displayName: 'iPhone 11 – דגם סין/הונג קונג',          region: 'CN',     esim: false, note: 'גרסאות סין/הונג קונג ללא eSIM.' },
+    // iPhone XR
+    { brand: 'apple', modelKey: 'IPHONEXR', displayName: 'iPhone XR (גלובלי)',                       region: 'GLOBAL', esim: true,  note: 'iPhone XR תומך eSIM בכל השווקים למעט סין/הונג קונג.' },
+    { brand: 'apple', modelKey: 'IPHONEXR', displayName: 'iPhone XR – דגם סין/הונג קונג',           region: 'CN',     esim: false, note: 'דגם סין/הונג קונג ללא eSIM (2x SIM פיזי).' },
 
-      { brand: 'apple', modelKey: 'IPHONE13',  displayName: 'iPhone 13 / 13 mini / 13 Pro / Pro Max (גלובלי)', region: 'GLOBAL', esim: true,  note: 'כל דגמי iPhone 13 הגלובליים תומכים eSIM.' },
-      { brand: 'apple', modelKey: 'IPHONE13',  displayName: 'iPhone 13 – דגם סין/הונג קונג',          region: 'CN',     esim: false, note: 'גרסת סין/הונג קונג ללא eSIM.' },
+    // iPhone XS / XS Max
+    { brand: 'apple', modelKey: 'IPHONEXS', displayName: 'iPhone XS / XS Max (גלובלי)',              region: 'GLOBAL', esim: true,  note: 'דגמי XS/XS Max הגלובליים תומכים eSIM, למעט גרסאות סין/הונג קונג.' },
+    { brand: 'apple', modelKey: 'IPHONEXS', displayName: 'iPhone XS / XS Max – דגם סין/הונג קונג',  region: 'CN',     esim: false, note: 'גרסת סין/הונג קונג של XS/XS Max ללא eSIM.' },
 
-      { brand: 'apple', modelKey: 'IPHONE15',  displayName: 'iPhone 15 / 15 Plus / 15 Pro / 15 Pro Max (גלובלי)', region: 'GLOBAL', esim: true, note: 'בארה״ב – eSIM בלבד, ללא SIM פיזי.' },
-      { brand: 'apple', modelKey: 'IPHONESE2', displayName: 'iPhone SE (2020)',                        region: 'GLOBAL', esim: true, note: 'תומך eSIM בכל השווקים.' },
+    // iPhone 11 / 11 Pro / 11 Pro Max
+    { brand: 'apple', modelKey: 'IPHONE11', displayName: 'iPhone 11 / 11 Pro / 11 Pro Max (גלובלי)', region: 'GLOBAL', esim: true,  note: 'כל דגמי iPhone 11 הגלובליים תומכים eSIM.' },
+    { brand: 'apple', modelKey: 'IPHONE11', displayName: 'iPhone 11 – דגם סין/הונג קונג',            region: 'CN',     esim: false, note: 'גרסאות סין/הונג קונג ללא eSIM.' },
+
+    // iPhone 12 / 12 mini / 12 Pro / 12 Pro Max
+    { brand: 'apple', modelKey: 'IPHONE12', displayName: 'iPhone 12 / 12 mini / 12 Pro / Pro Max (גלובלי)', region: 'GLOBAL', esim: true,  note: 'כל דגמי iPhone 12 הגלובליים תומכים eSIM. דגמי סין/הונג קונג ללא eSIM.' },
+    { brand: 'apple', modelKey: 'IPHONE12', displayName: 'iPhone 12 – דגם סין/הונג קונג',                 region: 'CN',     esim: false, note: 'גרסת סין/הונג קונג של iPhone 12 ללא eSIM.' },
+
+    // iPhone SE 2 (2020)
+    { brand: 'apple', modelKey: 'IPHONESE2', displayName: 'iPhone SE (2020)',                        region: 'GLOBAL', esim: true,  note: 'iPhone SE 2020 תומך eSIM בכל השווקים הרשמיים.' },
+
+    // iPhone SE 3 (2022)
+    { brand: 'apple', modelKey: 'IPHONESE3', displayName: 'iPhone SE (2022)',                        region: 'GLOBAL', esim: true,  note: 'iPhone SE 2022 תומך eSIM בכל השווקים הרשמיים.' },
+
+    // iPhone 13 / 13 mini / 13 Pro / 13 Pro Max
+    { brand: 'apple', modelKey: 'IPHONE13', displayName: 'iPhone 13 / 13 mini / 13 Pro / Pro Max (גלובלי)', region: 'GLOBAL', esim: true,  note: 'כל דגמי iPhone 13 הגלובליים תומכים eSIM.' },
+    { brand: 'apple', modelKey: 'IPHONE13', displayName: 'iPhone 13 – דגם סין/הונג קונג',                region: 'CN',     esim: false, note: 'גרסת סין/הונג קונג של iPhone 13 ללא eSIM (2x SIM פיזי).' },
+
+    // iPhone 14 / 14 Plus / 14 Pro / 14 Pro Max
+    { brand: 'apple', modelKey: 'IPHONE14', displayName: 'iPhone 14 / 14 Plus / 14 Pro / Pro Max (גלובלי)', region: 'GLOBAL', esim: true,  note: 'דגמי iPhone 14 הגלובליים תומכים eSIM; בארה״ב – eSIM בלבד ללא SIM פיזי.' },
+    { brand: 'apple', modelKey: 'IPHONE14', displayName: 'iPhone 14 – דגם סין/הונג קונג',                 region: 'CN',     esim: false, note: 'גרסת סין/הונג קונג של iPhone 14 לרוב ללא eSIM.' },
+
+    // iPhone 15 / 15 Plus / 15 Pro / 15 Pro Max
+    { brand: 'apple', modelKey: 'IPHONE15', displayName: 'iPhone 15 / 15 Plus / 15 Pro / Pro Max (גלובלי)', region: 'GLOBAL', esim: true,  note: 'דגמי iPhone 15 הגלובליים תומכים eSIM; בארה״ב – eSIM בלבד.' },
+    { brand: 'apple', modelKey: 'IPHONE15', displayName: 'iPhone 15 – דגם סין/הונג קונג',                 region: 'CN',     esim: false, note: 'גרסת סין/הונג קונג של iPhone 15 ללא eSIM.' },
+
+    // iPhone 16 / 16 Plus / 16 Pro / 16 Pro Max (הנחה: כולם תומכים eSIM, בארה״ב eSIM בלבד)
+    { brand: 'apple', modelKey: 'IPHONE16', displayName: 'iPhone 16 / 16 Plus / 16 Pro / Pro Max (גלובלי)', region: 'GLOBAL', esim: true,  note: 'סדרת iPhone 16 צפויה לתמוך eSIM בכל הדגמים; בארה״ב – eSIM בלבד.' },
+    { brand: 'apple', modelKey: 'IPHONE16', displayName: 'iPhone 16 – דגם סין/הונג קונג',                 region: 'CN',     esim: false, note: 'בהתאם למגמה הקודמת – דגמי סין/הונג קונג לרוב ללא eSIM.' },
+
 
       // ===== SAMSUNG =====
       { brand: 'samsung', modelKey: 'S20',     displayName: 'Galaxy S20 / S20+ / S20 Ultra (גלובלי)', region: 'GLOBAL', esim: true,  note: 'מרבית הדגמים הגלובליים תומכים eSIM.' },
