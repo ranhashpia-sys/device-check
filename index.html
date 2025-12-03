@@ -7,489 +7,492 @@
   <style>
     body {
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: #f3f4f6;
       margin: 0;
       padding: 0;
+      background: #0f172a;
+      color: #e5e7eb;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
     }
+
     .container {
-      max-width: 480px;
-      margin: 40px auto;
-      background: #ffffff;
-      padding: 24px 20px;
+      max-width: 800px;
+      width: 100%;
+      padding: 24px 16px 40px;
+      box-sizing: border-box;
+    }
+
+    .card {
+      background: #020617;
       border-radius: 16px;
-      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.12);
+      padding: 24px 20px 28px;
+      box-shadow: 0 20px 40px rgba(15, 23, 42, 0.7);
+      border: 1px solid #1f2937;
     }
+
     h1 {
-      font-size: 22px;
-      margin-top: 0;
-      margin-bottom: 8px;
+      font-size: 1.6rem;
+      margin: 0 0 8px;
       text-align: center;
     }
-    p.subtitle {
-      margin-top: 0;
+
+    .subtitle {
+      text-align: center;
+      font-size: 0.9rem;
+      color: #9ca3af;
       margin-bottom: 20px;
-      font-size: 13px;
-      color: #6b7280;
-      text-align: center;
     }
+
     label {
+      font-size: 0.9rem;
       display: block;
       margin-bottom: 4px;
-      font-size: 14px;
-      font-weight: 600;
-      color: #374151;
     }
-    select {
+
+    .field {
+      margin-bottom: 16px;
+    }
+
+    select, button {
       width: 100%;
-      padding: 10px 12px;
-      margin-bottom: 14px;
-      border-radius: 10px;
-      border: 1px solid #d1d5db;
-      font-size: 14px;
       box-sizing: border-box;
-      background-color: #ffffff;
-    }
-    select:focus {
+      border-radius: 10px;
+      border: 1px solid #4b5563;
+      padding: 10px 12px;
+      background: #020617;
+      color: #e5e7eb;
+      font-size: 0.95rem;
       outline: none;
-      border-color: #2563eb;
-      box-shadow: 0 0 0 1px #2563eb33;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
     }
-    .hint {
-      font-size: 11px;
-      color: #6b7280;
-      margin-top: -8px;
-      margin-bottom: 10px;
+
+    select:focus, button:focus {
+      border-color: #38bdf8;
+      box-shadow: 0 0 0 1px #38bdf8;
     }
+
+    select:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
     button {
-      width: 100%;
-      padding: 12px;
-      border-radius: 999px;
+      margin-top: 8px;
+      background: linear-gradient(135deg, #22c55e, #16a34a);
       border: none;
-      background: #2563eb;
-      color: #ffffff;
-      font-size: 15px;
-      font-weight: 700;
+      font-weight: 600;
       cursor: pointer;
-      margin-top: 6px;
     }
+
     button:hover {
-      background: #1d4ed8;
+      background: linear-gradient(135deg, #16a34a, #15803d);
     }
-    button:active {
-      transform: scale(0.99);
-    }
+
     .result {
       margin-top: 18px;
-      padding: 14px 12px;
       border-radius: 12px;
-      font-size: 14px;
-      line-height: 1.5;
+      padding: 12px 12px 10px;
+      font-size: 0.95rem;
+      display: none;
     }
+
     .result.ok {
-      background: #ecfdf5;
-      color: #065f46;
-      border: 1px solid #6ee7b7;
+      background: rgba(34, 197, 94, 0.12);
+      border: 1px solid rgba(34, 197, 94, 0.6);
+      color: #bbf7d0;
     }
-    .result.bad {
-      background: #fef2f2;
-      color: #991b1b;
-      border: 1px solid #fecaca;
+
+    .result.no {
+      background: rgba(248, 113, 113, 0.12);
+      border: 1px solid rgba(248, 113, 113, 0.7);
+      color: #fecaca;
     }
-    .result.unknown {
-      background: #eff6ff;
-      color: #1e40af;
-      border: 1px solid #bfdbfe;
-    }
+
     .result-title {
       font-weight: 700;
       margin-bottom: 4px;
     }
-    .notes {
-      font-size: 12px;
-      color: #4b5563;
-      margin-top: 4px;
-    }
-    .footer {
-      text-align: center;
-      margin-top: 16px;
-      font-size: 11px;
+
+    .small {
+      font-size: 0.8rem;
       color: #9ca3af;
+      margin-top: 8px;
+    }
+
+    .tags {
+      margin-top: 4px;
+      font-size: 0.8rem;
+      color: #9ca3af;
+    }
+
+    .tag {
+      display: inline-block;
+      background: #111827;
+      border-radius: 999px;
+      padding: 3px 8px;
+      margin-inline-start: 4px;
+      margin-top: 2px;
+      border: 1px solid #1f2937;
+    }
+
+    @media (min-width: 640px) {
+      .card {
+        padding-inline: 28px;
+      }
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>בדיקת תאימות eSIM</h1>
-    <p class="subtitle">בחר יצרן, דגם ואזור (אם רלוונטי) ונבדוק אם המכשיר תומך eSIM.</p>
+    <div class="card">
+      <h1>בדיקת תאימות eSIM</h1>
+      <div class="subtitle">
+        בחר יצרן, דגם, ואזור רכישה (אופציונלי) ונבדוק אם המכשיר מוכר כתומך eSIM.
+      </div>
 
-    <!-- שורה 1: יצרן -->
-    <label for="brand">יצרן הטלפון</label>
-    <select id="brand">
-      <option value="">בחר יצרן...</option>
-      <option value="apple">Apple (iPhone)</option>
-      <option value="samsung">Samsung</option>
-      <option value="xiaomi">Xiaomi / Redmi / Poco</option>
-      <option value="pixel">Google Pixel</option>
-      <option value="oneplus">OnePlus</option>
-      <option value="oppo">OPPO / Realme</option>
-      <option value="motorola">Motorola</option>
-      <option value="nothing">Nothing</option>
-      <option value="other">אחר / לא בטוח</option>
-    </select>
+      <div class="field">
+        <label for="brandSelect">1. יצרן</label>
+        <select id="brandSelect">
+          <option value="">בחר יצרן…</option>
+        </select>
+      </div>
 
-    <!-- שורה 2: דגם ספציפי (תלוי יצרן) -->
-    <label for="model">דגם ספציפי</label>
-    <select id="model" disabled>
-      <option value="">בחר יצרן קודם...</option>
-    </select>
+      <div class="field">
+        <label for="modelSelect">2. דגם ספציפי</label>
+        <select id="modelSelect" disabled>
+          <option value="">בחר דגם…</option>
+        </select>
+      </div>
 
-    <!-- שורה 3: הערות / אזור (לא חובה) -->
-    <label for="region">אזור / גרסה (לא חובה)</label>
-    <select id="region">
-      <option value="">לא ציינתי / לא בטוח</option>
-      <option value="GLOBAL">גלובלי / אירופה / ישראל</option>
-      <option value="US">ארה"ב / North America</option>
-      <option value="CN">סין (China mainland)</option>
-      <option value="HK">הונג קונג / מקאו</option>
-      <option value="OTHER">שוק אחר</option>
-    </select>
-    <div class="hint">
-      אם אתה יודע שהמכשיר נקנה בסין / הונג קונג / USA – בחר זאת כאן לקבלת תשובה מדויקת יותר.
-    </div>
+      <div class="field">
+        <label for="regionSelect">3. אזור רכישה / הערה (לא חובה)</label>
+        <select id="regionSelect">
+          <option value="">ללא / לא ידוע</option>
+          <option value="IL_EU">המכשיר נקנה בישראל / אירופה</option>
+          <option value="US_CA">המכשיר נקנה בארה״ב / קנדה</option>
+          <option value="CN_HK">המכשיר נקנה בסין / הונג קונג</option>
+          <option value="OTHER">אזור אחר</option>
+        </select>
+      </div>
 
-    <button id="checkBtn">בדיקת תאימות</button>
+      <button id="checkBtn">בדיקת תאימות</button>
 
-    <div id="result" class="result" style="display:none;"></div>
-
-    <div class="footer">
-      כלי הדגמה – התוצאה היא עזר בלבד, מומלץ לוודא בהגדרות המכשיר בפועל (EID / הוספת eSIM).
+      <div id="resultBox" class="result">
+        <div class="result-title" id="resultTitle"></div>
+        <div id="resultText"></div>
+        <div id="resultTags" class="tags"></div>
+        <div class="small">
+          שים לב: תמיד מומלץ לוודא גם מול היבואן / היצרן, במיוחד אם המכשיר נרכש בשוק אפור או בסין.
+        </div>
+      </div>
     </div>
   </div>
 
   <script>
-    // ===== בנק הטלפונים =====
-    // brand: apple/samsung/...
-    // modelKey: מפתח פנימי (משפחת דגם)
-    // displayName: מה שמופיע ללקוח ברשימת הדגמים
-    // region: GLOBAL / CN / HK / US / OTHER
-    // esim: true/false
-    // note: טקסט עזר
+    // -------------------------------
+    // בסיס נתונים: מכשירים תומכי eSIM
+    // -------------------------------
+    const ESIM_DEVICES = [
+      // APPLE – iPhone & iPad
+      { brand: 'apple', modelKey: 'IPHONE_11',           displayName: 'iPhone 11',            esim: true, region: 'GLOBAL' },
+      { brand: 'apple', modelKey: 'IPHONE_11_PRO',       displayName: 'iPhone 11 Pro',        esim: true, region: 'GLOBAL' },
+      { brand: 'apple', modelKey: 'IPHONE_11_PRO_MAX',   displayName: 'iPhone 11 Pro Max',    esim: true, region: 'GLOBAL' },
+      { brand: 'apple', modelKey: 'IPHONE_XS',           displayName: 'iPhone XS',            esim: true, region: 'GLOBAL' },
+      { brand: 'apple', modelKey: 'IPHONE_XS_MAX',       displayName: 'iPhone XS Max',        esim: true, region: 'GLOBAL' },
+      { brand: 'apple', modelKey: 'IPHONE_XR',           displayName: 'iPhone XR',            esim: true, region: 'GLOBAL' },
+      { brand: 'apple', modelKey: 'IPHONE_SE_2020',      displayName: 'iPhone SE (2020)',     esim: true, region: 'GLOBAL' },
+      { brand: 'apple', modelKey: 'IPHONE_SE_2022',      displayName: 'iPhone SE (2022)',     esim: true, region: 'GLOBAL' },
 
-    // פורמט אחיד:
-// { brand: 'apple', modelKey: 'IPHONE_11', displayName: 'iPhone 11', esim: true, region: 'GLOBAL' }
+      { brand: 'apple', modelKey: 'IPHONE_17_PRO_MAX',   displayName: 'iPhone 17 Pro Max',    esim: true, region: 'GLOBAL' },
+      { brand: 'apple', modelKey: 'IPHONE_17_PRO',       displayName: 'iPhone 17 Pro',        esim: true, region: 'GLOBAL' },
+      { brand: 'apple', modelKey: 'IPHONE_17',           displayName: 'iPhone 17',            esim: true, region: 'GLOBAL' },
+      { brand: 'apple', modelKey: 'IPHONE_17_AIR',       displayName: 'iPhone air 17',        esim: true, region: 'GLOBAL' },
+      { brand: 'apple', modelKey: 'IPHONE_16',           displayName: 'iPhone 16',            esim: true, region: 'GLOBAL' },
+      { brand: 'apple', modelKey: 'IPHONE_16_PLUS',      displayName: 'iPhone 16 Plus',       esim: true, region: 'GLOBAL' },
+      { brand: 'apple', modelKey: 'IPHONE_16_PRO',       displayName: 'iPhone 16 Pro',        esim: true, region: 'GLOBAL' },
+      { brand: 'apple', modelKey: 'IPHONE_16_PRO_MAX',   displayName: 'iPhone 16 Pro Max',    esim: true, region: 'GLOBAL' },
+      { brand: 'apple', modelKey: 'IPHONE_15',           displayName: 'iPhone 15',            esim: true, region: 'GLOBAL' },
+      { brand: 'apple', modelKey: 'IPHONE_15_PLUS',      displayName: 'iPhone 15 Plus',       esim: true, region: 'GLOBAL' },
+      { brand: 'apple', modelKey: 'IPHONE_15_PRO',       displayName: 'iPhone 15 Pro',        esim: true, region: 'GLOBAL' },
+      { brand: 'apple', modelKey: 'IPHONE_15_PRO_MAX',   displayName: 'iPhone 15 Pro Max',    esim: true, region: 'GLOBAL' },
+      { brand: 'apple', modelKey: 'IPHONE_14',           displayName: 'iPhone 14',            esim: true, region: 'GLOBAL' },
+      { brand: 'apple', modelKey: 'IPHONE_14_PLUS',      displayName: 'iPhone 14 Plus',       esim: true, region: 'GLOBAL' },
+      { brand: 'apple', modelKey: 'IPHONE_14_PRO',       displayName: 'iPhone 14 Pro',        esim: true, region: 'GLOBAL' },
+      { brand: 'apple', modelKey: 'IPHONE_14_PRO_MAX',   displayName: 'iPhone 14 Pro Max',    esim: true, region: 'GLOBAL' },
+      { brand: 'apple', modelKey: 'IPHONE_13',           displayName: 'iPhone 13',            esim: true, region: 'GLOBAL' },
+      { brand: 'apple', modelKey: 'IPHONE_13_PRO',       displayName: 'iPhone 13 Pro',        esim: true, region: 'GLOBAL' },
+      { brand: 'apple', modelKey: 'IPHONE_13_PRO_MAX',   displayName: 'iPhone 13 Pro Max',    esim: true, region: 'GLOBAL' },
+      { brand: 'apple', modelKey: 'IPHONE_13_MINI',      displayName: 'iPhone 13 Mini',       esim: true, region: 'GLOBAL' },
+      { brand: 'apple', modelKey: 'IPHONE_12',           displayName: 'iPhone 12',            esim: true, region: 'GLOBAL' },
+      { brand: 'apple', modelKey: 'IPHONE_12_MINI',      displayName: 'iPhone 12 Mini',       esim: true, region: 'GLOBAL' },
+      { brand: 'apple', modelKey: 'IPHONE_12_PRO',       displayName: 'iPhone 12 Pro',        esim: true, region: 'GLOBAL' },
+      { brand: 'apple', modelKey: 'IPHONE_12_PRO_MAX',   displayName: 'iPhone 12 Pro Max',    esim: true, region: 'GLOBAL' },
 
-export const ESIM_DEVICES = [
-  // ---------------------
-  // APPLE – iPhone & iPad
-  // ---------------------
-  { brand: 'apple', modelKey: 'IPHONE_11',           displayName: 'iPhone 11',            esim: true, region: 'GLOBAL' },
-  { brand: 'apple', modelKey: 'IPHONE_11_PRO',       displayName: 'iPhone 11 Pro',        esim: true, region: 'GLOBAL' },
-  { brand: 'apple', modelKey: 'IPHONE_11_PRO_MAX',   displayName: 'iPhone 11 Pro Max',    esim: true, region: 'GLOBAL' },
-  { brand: 'apple', modelKey: 'IPHONE_XS',           displayName: 'iPhone XS',            esim: true, region: 'GLOBAL' },
-  { brand: 'apple', modelKey: 'IPHONE_XS_MAX',       displayName: 'iPhone XS Max',        esim: true, region: 'GLOBAL' },
-  { brand: 'apple', modelKey: 'IPHONE_XR',           displayName: 'iPhone XR',            esim: true, region: 'GLOBAL' },
-  { brand: 'apple', modelKey: 'IPHONE_SE_2020',      displayName: 'iPhone SE (2020)',     esim: true, region: 'GLOBAL' },
-  { brand: 'apple', modelKey: 'IPHONE_SE_2022',      displayName: 'iPhone SE (2022)',     esim: true, region: 'GLOBAL' },
+      { brand: 'apple', modelKey: 'IPAD_AIR_3',          displayName: 'iPad Air (3rd generation)',        esim: true, region: 'GLOBAL' },
+      { brand: 'apple', modelKey: 'IPAD_AIR_4',          displayName: 'iPad Air (4th generation)',        esim: true, region: 'GLOBAL' },
+      { brand: 'apple', modelKey: 'IPAD_PRO_11_1',       displayName: 'iPad Pro 11-inch (1st generation)', esim: true, region: 'GLOBAL' },
+      { brand: 'apple', modelKey: 'IPAD_PRO_11_2',       displayName: 'iPad Pro 11-inch (2nd generation)', esim: true, region: 'GLOBAL' },
+      { brand: 'apple', modelKey: 'IPAD_PRO_11_3',       displayName: 'iPad Pro 11-inch (3rd generation)', esim: true, region: 'GLOBAL' },
+      { brand: 'apple', modelKey: 'IPAD_PRO_12_9_3',     displayName: 'iPad Pro 12.9-inch (3rd generation)',esim: true, region: 'GLOBAL' },
+      { brand: 'apple', modelKey: 'IPAD_PRO_12_9_4',     displayName: 'iPad Pro 12.9-inch (4th generation)',esim: true, region: 'GLOBAL' },
+      { brand: 'apple', modelKey: 'IPAD_PRO_12_9_5',     displayName: 'iPad Pro 12.9-inch (5th generation)',esim: true, region: 'GLOBAL' },
+      { brand: 'apple', modelKey: 'IPAD_7',              displayName: 'iPad (7th generation)',             esim: true, region: 'GLOBAL' },
+      { brand: 'apple', modelKey: 'IPAD_8',              displayName: 'iPad (8th generation)',             esim: true, region: 'GLOBAL' },
+      { brand: 'apple', modelKey: 'IPAD_9',              displayName: 'iPad (9th generation)',             esim: true, region: 'GLOBAL' },
+      { brand: 'apple', modelKey: 'IPAD_MINI_5',         displayName: 'iPad Mini (5th generation)',        esim: true, region: 'GLOBAL' },
+      { brand: 'apple', modelKey: 'IPAD_MINI_6',         displayName: 'iPad Mini (6th generation)',        esim: true, region: 'GLOBAL' },
 
-  // דגמי iPhone החדשים מהרשימה שלך
-  { brand: 'apple', modelKey: 'IPHONE_17_PRO_MAX',   displayName: 'iPhone 17 Pro Max',    esim: true, region: 'GLOBAL' },
-  { brand: 'apple', modelKey: 'IPHONE_17_PRO',       displayName: 'iPhone 17 Pro',        esim: true, region: 'GLOBAL' },
-  { brand: 'apple', modelKey: 'IPHONE_17',           displayName: 'iPhone 17',            esim: true, region: 'GLOBAL' },
-  { brand: 'apple', modelKey: 'IPHONE_17_AIR',       displayName: 'iPhone air 17',        esim: true, region: 'GLOBAL' }, // לפי הרשימה ששלחת
-  { brand: 'apple', modelKey: 'IPHONE_16',           displayName: 'iPhone 16',            esim: true, region: 'GLOBAL' },
-  { brand: 'apple', modelKey: 'IPHONE_16_PLUS',      displayName: 'iPhone 16 Plus',       esim: true, region: 'GLOBAL' },
-  { brand: 'apple', modelKey: 'IPHONE_16_PRO',       displayName: 'iPhone 16 Pro',        esim: true, region: 'GLOBAL' },
-  { brand: 'apple', modelKey: 'IPHONE_16_PRO_MAX',   displayName: 'iPhone 16 Pro Max',    esim: true, region: 'GLOBAL' },
-  { brand: 'apple', modelKey: 'IPHONE_15',           displayName: 'iPhone 15',            esim: true, region: 'GLOBAL' },
-  { brand: 'apple', modelKey: 'IPHONE_15_PLUS',      displayName: 'iPhone 15 Plus',       esim: true, region: 'GLOBAL' },
-  { brand: 'apple', modelKey: 'IPHONE_15_PRO',       displayName: 'iPhone 15 Pro',        esim: true, region: 'GLOBAL' },
-  { brand: 'apple', modelKey: 'IPHONE_15_PRO_MAX',   displayName: 'iPhone 15 Pro Max',    esim: true, region: 'GLOBAL' },
-  { brand: 'apple', modelKey: 'IPHONE_14',           displayName: 'iPhone 14',            esim: true, region: 'GLOBAL' },
-  { brand: 'apple', modelKey: 'IPHONE_14_PLUS',      displayName: 'iPhone 14 Plus',       esim: true, region: 'GLOBAL' },
-  { brand: 'apple', modelKey: 'IPHONE_14_PRO',       displayName: 'iPhone 14 Pro',        esim: true, region: 'GLOBAL' },
-  { brand: 'apple', modelKey: 'IPHONE_14_PRO_MAX',   displayName: 'iPhone 14 Pro Max',    esim: true, region: 'GLOBAL' },
-  { brand: 'apple', modelKey: 'IPHONE_13',           displayName: 'iPhone 13',            esim: true, region: 'GLOBAL' },
-  { brand: 'apple', modelKey: 'IPHONE_13_PRO',       displayName: 'iPhone 13 Pro',        esim: true, region: 'GLOBAL' },
-  { brand: 'apple', modelKey: 'IPHONE_13_PRO_MAX',   displayName: 'iPhone 13 Pro Max',    esim: true, region: 'GLOBAL' },
-  { brand: 'apple', modelKey: 'IPHONE_13_MINI',      displayName: 'iPhone 13 Mini',       esim: true, region: 'GLOBAL' },
-  { brand: 'apple', modelKey: 'IPHONE_12',           displayName: 'iPhone 12',            esim: true, region: 'GLOBAL' },
-  { brand: 'apple', modelKey: 'IPHONE_12_MINI',      displayName: 'iPhone 12 Mini',       esim: true, region: 'GLOBAL' },
-  { brand: 'apple', modelKey: 'IPHONE_12_PRO',       displayName: 'iPhone 12 Pro',        esim: true, region: 'GLOBAL' },
-  { brand: 'apple', modelKey: 'IPHONE_12_PRO_MAX',   displayName: 'iPhone 12 Pro Max',    esim: true, region: 'GLOBAL' },
+      // SAMSUNG Galaxy
+      { brand: 'samsung', modelKey: 'GALAXY_NOTE_20',         displayName: 'Samsung Galaxy Note 20',          esim: true, region: 'GLOBAL' },
+      { brand: 'samsung', modelKey: 'GALAXY_NOTE_20_PLUS',    displayName: 'Samsung Galaxy Note 20+',         esim: true, region: 'GLOBAL' },
+      { brand: 'samsung', modelKey: 'GALAXY_NOTE_20_ULTRA',   displayName: 'Samsung Galaxy Note 20 Ultra',    esim: true, region: 'GLOBAL' },
+      { brand: 'samsung', modelKey: 'GALAXY_S20',             displayName: 'Samsung Galaxy S20',              esim: true, region: 'GLOBAL' },
+      { brand: 'samsung', modelKey: 'GALAXY_S20_PLUS',        displayName: 'Samsung Galaxy S20+',             esim: true, region: 'GLOBAL' },
 
-  // iPad / iPad Air / iPad Pro / iPad mini מהרשימה
-  { brand: 'apple', modelKey: 'IPAD_AIR_3',          displayName: 'iPad Air (3rd generation)',        esim: true, region: 'GLOBAL' },
-  { brand: 'apple', modelKey: 'IPAD_AIR_4',          displayName: 'iPad Air (4th generation)',        esim: true, region: 'GLOBAL' },
-  { brand: 'apple', modelKey: 'IPAD_PRO_11_1',       displayName: 'iPad Pro 11-inch (1st generation)', esim: true, region: 'GLOBAL' },
-  { brand: 'apple', modelKey: 'IPAD_PRO_11_2',       displayName: 'iPad Pro 11-inch (2nd generation)', esim: true, region: 'GLOBAL' },
-  { brand: 'apple', modelKey: 'IPAD_PRO_11_3',       displayName: 'iPad Pro 11-inch (3rd generation)', esim: true, region: 'GLOBAL' },
-  { brand: 'apple', modelKey: 'IPAD_PRO_12_9_3',     displayName: 'iPad Pro 12.9-inch (3rd generation)',esim: true, region: 'GLOBAL' },
-  { brand: 'apple', modelKey: 'IPAD_PRO_12_9_4',     displayName: 'iPad Pro 12.9-inch (4th generation)',esim: true, region: 'GLOBAL' },
-  { brand: 'apple', modelKey: 'IPAD_PRO_12_9_5',     displayName: 'iPad Pro 12.9-inch (5th generation)',esim: true, region: 'GLOBAL' },
-  { brand: 'apple', modelKey: 'IPAD_7',              displayName: 'iPad (7th generation)',             esim: true, region: 'GLOBAL' },
-  { brand: 'apple', modelKey: 'IPAD_8',              displayName: 'iPad (8th generation)',             esim: true, region: 'GLOBAL' },
-  { brand: 'apple', modelKey: 'IPAD_9',              displayName: 'iPad (9th generation)',             esim: true, region: 'GLOBAL' },
-  { brand: 'apple', modelKey: 'IPAD_MINI_5',         displayName: 'iPad Mini (5th generation)',        esim: true, region: 'GLOBAL' },
-  { brand: 'apple', modelKey: 'IPAD_MINI_6',         displayName: 'iPad Mini (6th generation)',        esim: true, region: 'GLOBAL' },
+      { brand: 'samsung', modelKey: 'GALAXY_S21_5G',          displayName: 'Samsung Galaxy S21 5G',           esim: true, region: 'GLOBAL' },
+      { brand: 'samsung', modelKey: 'GALAXY_S21_PLUS_5G',     displayName: 'Samsung Galaxy S21+ 5G',          esim: true, region: 'GLOBAL' },
+      { brand: 'samsung', modelKey: 'GALAXY_S21_ULTRA_5G',    displayName: 'Samsung Galaxy S21 Ultra 5G',     esim: true, region: 'GLOBAL' },
 
-  // --------------
-  // SAMSUNG Galaxy
-  // --------------
-  // Note/S/Flip/Fold
-  { brand: 'samsung', modelKey: 'GALAXY_NOTE_20',         displayName: 'Samsung Galaxy Note 20',          esim: true, region: 'GLOBAL' }, // לא כל הדגמים
-  { brand: 'samsung', modelKey: 'GALAXY_NOTE_20_ULTRA',   displayName: 'Samsung Galaxy Note 20 Ultra',    esim: true, region: 'GLOBAL' },
-  { brand: 'samsung', modelKey: 'GALAXY_S20',             displayName: 'Samsung Galaxy S20',              esim: true, region: 'GLOBAL' },
-  { brand: 'samsung', modelKey: 'GALAXY_S21_5G',          displayName: 'Samsung Galaxy S21 5G',           esim: true, region: 'GLOBAL' },
-  { brand: 'samsung', modelKey: 'GALAXY_S21_PLUS_5G',     displayName: 'Samsung Galaxy S21+ 5G',          esim: true, region: 'GLOBAL' },
-  { brand: 'samsung', modelKey: 'GALAXY_S21_ULTRA_5G',    displayName: 'Samsung Galaxy S21 Ultra 5G',     esim: true, region: 'GLOBAL' },
-  { brand: 'samsung', modelKey: 'GALAXY_S22_5G',          displayName: 'Samsung Galaxy S22 5G',           esim: true, region: 'GLOBAL' },
-  { brand: 'samsung', modelKey: 'GALAXY_S22_PLUS_5G',     displayName: 'Samsung Galaxy S22+ 5G',          esim: true, region: 'GLOBAL' },
-  { brand: 'samsung', modelKey: 'GALAXY_S22_ULTRA_5G',    displayName: 'Samsung Galaxy S22 Ultra 5G',     esim: true, region: 'GLOBAL' },
-  { brand: 'samsung', modelKey: 'GALAXY_S23',             displayName: 'Samsung Galaxy S23',              esim: true, region: 'GLOBAL' },
-  { brand: 'samsung', modelKey: 'GALAXY_S23_ULTRA',       displayName: 'Samsung Galaxy S23 Ultra',        esim: true, region: 'GLOBAL' },
-  { brand: 'samsung', modelKey: 'GALAXY_S23_FE',          displayName: 'Samsung Galaxy S23 FE',           esim: true, region: 'GLOBAL' },
-  { brand: 'samsung', modelKey: 'GALAXY_S24',             displayName: 'Samsung Galaxy S24',              esim: true, region: 'GLOBAL' },
-  { brand: 'samsung', modelKey: 'GALAXY_S24_ULTRA',       displayName: 'Samsung Galaxy S24 Ultra',        esim: true, region: 'GLOBAL' },
-  { brand: 'samsung', modelKey: 'GALAXY_S25',             displayName: 'Samsung Galaxy S25',              esim: true, region: 'GLOBAL' },
-  { brand: 'samsung', modelKey: 'GALAXY_S25_ULTRA',       displayName: 'Samsung Galaxy S25 Ultra',        esim: true, region: 'GLOBAL' },
+      { brand: 'samsung', modelKey: 'GALAXY_S22_5G',          displayName: 'Samsung Galaxy S22 5G',           esim: true, region: 'GLOBAL' },
+      { brand: 'samsung', modelKey: 'GALAXY_S22_PLUS_5G',     displayName: 'Samsung Galaxy S22+ 5G',          esim: true, region: 'GLOBAL' },
+      { brand: 'samsung', modelKey: 'GALAXY_S22_ULTRA_5G',    displayName: 'Samsung Galaxy S22 Ultra 5G',     esim: true, region: 'GLOBAL' },
 
-  { brand: 'samsung', modelKey: 'GALAXY_Z_FLIP',          displayName: 'Samsung Galaxy Z Flip',           esim: true, region: 'GLOBAL' },
-  { brand: 'samsung', modelKey: 'GALAXY_Z_FLIP3_5G',      displayName: 'Samsung Galaxy Z Flip3 5G',       esim: true, region: 'GLOBAL' },
-  { brand: 'samsung', modelKey: 'GALAXY_Z_FLIP_6',        displayName: 'Galaxy Z Flip 6',                 esim: true, region: 'GLOBAL' },
-  { brand: 'samsung', modelKey: 'GALAXY_Z_FLIP_7',        displayName: 'Galaxy Z Flip 7',                 esim: true, region: 'GLOBAL' },
+      { brand: 'samsung', modelKey: 'GALAXY_S23',             displayName: 'Samsung Galaxy S23',              esim: true, region: 'GLOBAL' },
+      { brand: 'samsung', modelKey: 'GALAXY_S23_PLUS',        displayName: 'Samsung Galaxy S23+',             esim: true, region: 'GLOBAL' },
+      { brand: 'samsung', modelKey: 'GALAXY_S23_ULTRA',       displayName: 'Samsung Galaxy S23 Ultra',        esim: true, region: 'GLOBAL' },
 
-  { brand: 'samsung', modelKey: 'GALAXY_Z_FOLD',          displayName: 'Samsung Galaxy Fold',             esim: true, region: 'GLOBAL' },
-  { brand: 'samsung', modelKey: 'GALAXY_Z_FOLD2',         displayName: 'Samsung Galaxy Z Fold2',          esim: true, region: 'GLOBAL' },
-  { brand: 'samsung', modelKey: 'GALAXY_Z_FOLD3',         displayName: 'Samsung Galaxy Z Fold3',          esim: true, region: 'GLOBAL' },
-  { brand: 'samsung', modelKey: 'GALAXY_Z_FOLD_6',        displayName: 'Galaxy Z Fold 6',                 esim: true, region: 'GLOBAL' },
-  { brand: 'samsung', modelKey: 'GALAXY_Z_FOLD_7',        displayName: 'Galaxy Z Fold 7',                 esim: true, region: 'GLOBAL' },
+      { brand: 'samsung', modelKey: 'GALAXY_S24',             displayName: 'Samsung Galaxy S24',              esim: true, region: 'GLOBAL' },
+      { brand: 'samsung', modelKey: 'GALAXY_S24_ULTRA',       displayName: 'Samsung Galaxy S24 Ultra',        esim: true, region: 'GLOBAL' },
 
-  { brand: 'samsung', modelKey: 'GALAXY_XCOVER_7',        displayName: 'Samsung Galaxy XCover 7',         esim: true, region: 'GLOBAL' },
+      { brand: 'samsung', modelKey: 'GALAXY_S25',             displayName: 'Samsung Galaxy S25',              esim: true, region: 'GLOBAL' },
+      { brand: 'samsung', modelKey: 'GALAXY_S25_ULTRA',       displayName: 'Samsung Galaxy S25 Ultra',        esim: true, region: 'GLOBAL' },
 
-  // סדרת A עם ציון 2024+
-  { brand: 'samsung', modelKey: 'GALAXY_A56_5G_2024',     displayName: 'Galaxy A56 5G (2024+)',           esim: true, region: 'GLOBAL' },
-  { brand: 'samsung', modelKey: 'GALAXY_A55_5G_2024',     displayName: 'Galaxy A55 5G (2024+)',           esim: true, region: 'GLOBAL' },
-  { brand: 'samsung', modelKey: 'GALAXY_A54_5G_2024',     displayName: 'Galaxy A54 5G (2024+)',           esim: true, region: 'GLOBAL' },
-  { brand: 'samsung', modelKey: 'GALAXY_A35_5G_2024',     displayName: 'Galaxy A35 5G (2024+)',           esim: true, region: 'GLOBAL' },
-  { brand: 'samsung', modelKey: 'GALAXY_A23_5G_2024',     displayName: 'Galaxy A23 5G (2024+)',           esim: true, region: 'GLOBAL' },
+      { brand: 'samsung', modelKey: 'GALAXY_Z_FLIP',          displayName: 'Samsung Galaxy Z Flip',           esim: true, region: 'GLOBAL' },
+      { brand: 'samsung', modelKey: 'GALAXY_Z_FLIP3_5G',      displayName: 'Samsung Galaxy Z Flip3 5G',       esim: true, region: 'GLOBAL' },
+      { brand: 'samsung', modelKey: 'GALAXY_Z_FLIP_6',        displayName: 'Galaxy Z Flip 6',                 esim: true, region: 'GLOBAL' },
+      { brand: 'samsung', modelKey: 'GALAXY_Z_FLIP_7',        displayName: 'Galaxy Z Flip 7',                 esim: true, region: 'GLOBAL' },
 
-  // -------
-  // XIAOMI
-  // -------
-  { brand: 'xiaomi', modelKey: 'MI_12T_PRO',        displayName: 'Xiaomi 12T Pro',       esim: true, region: 'GLOBAL' },
-  { brand: 'xiaomi', modelKey: 'MI_13',             displayName: 'Xiaomi 13',            esim: true, region: 'GLOBAL' },
-  { brand: 'xiaomi', modelKey: 'MI_13_LITE',        displayName: 'Xiaomi 13 lite',       esim: true, region: 'GLOBAL' },
-  { brand: 'xiaomi', modelKey: 'MI_13_PRO',         displayName: 'Xiaomi 13 Pro',        esim: true, region: 'GLOBAL' }, // רק בחלק מהדגמים – לפי ההערה שלך
-  { brand: 'xiaomi', modelKey: 'MI_14',             displayName: 'Xiaomi 14',            esim: true, region: 'GLOBAL' },
-  { brand: 'xiaomi', modelKey: 'MI_14_PRO',         displayName: 'Xiaomi 14 Pro',        esim: true, region: 'GLOBAL' },
-  { brand: 'xiaomi', modelKey: 'MI_15',             displayName: 'Xiaomi 15',            esim: true, region: 'GLOBAL' },
-  { brand: 'xiaomi', modelKey: 'MI_15_ULTRA',       displayName: 'Xiaomi 15 Ultra',      esim: true, region: 'GLOBAL' },
+      { brand: 'samsung', modelKey: 'GALAXY_Z_FOLD',          displayName: 'Samsung Galaxy Fold',             esim: true, region: 'GLOBAL' },
+      { brand: 'samsung', modelKey: 'GALAXY_Z_FOLD2',         displayName: 'Samsung Galaxy Z Fold2',          esim: true, region: 'GLOBAL' },
+      { brand: 'samsung', modelKey: 'GALAXY_Z_FOLD3',         displayName: 'Samsung Galaxy Z Fold3',          esim: true, region: 'GLOBAL' },
+      { brand: 'samsung', modelKey: 'GALAXY_Z_FOLD_6',        displayName: 'Galaxy Z Fold 6',                 esim: true, region: 'GLOBAL' },
+      { brand: 'samsung', modelKey: 'GALAXY_Z_FOLD_7',        displayName: 'Galaxy Z Fold 7',                 esim: true, region: 'GLOBAL' },
 
-  // --------
-  // PIXEL
-  // --------
-  { brand: 'google', modelKey: 'PIXEL_9_PRO_FOLD',  displayName: 'Google Pixel 9 Pro Fold', esim: true, region: 'GLOBAL' },
-  { brand: 'google', modelKey: 'PIXEL_9_PRO',       displayName: 'Google Pixel 9 Pro',      esim: true, region: 'GLOBAL' },
-  { brand: 'google', modelKey: 'PIXEL_9',           displayName: 'Google Pixel 9',          esim: true, region: 'GLOBAL' },
-  { brand: 'google', modelKey: 'PIXEL_8_PRO',       displayName: 'Google Pixel 8 Pro',      esim: true, region: 'GLOBAL' },
-  { brand: 'google', modelKey: 'PIXEL_8',           displayName: 'Google Pixel 8',          esim: true, region: 'GLOBAL' },
-  { brand: 'google', modelKey: 'PIXEL_7_PRO',       displayName: 'Google Pixel 7 Pro',      esim: true, region: 'GLOBAL' },
-  { brand: 'google', modelKey: 'PIXEL_7',           displayName: 'Google Pixel 7',          esim: true, region: 'GLOBAL' },
-  { brand: 'google', modelKey: 'PIXEL_6A',          displayName: 'Google Pixel 6a',         esim: true, region: 'GLOBAL' },
-  { brand: 'google', modelKey: 'PIXEL_6',           displayName: 'Google Pixel 6',          esim: true, region: 'GLOBAL' },
-  { brand: 'google', modelKey: 'PIXEL_5',           displayName: 'Google Pixel 5',          esim: true, region: 'GLOBAL' },
-  { brand: 'google', modelKey: 'PIXEL_4',           displayName: 'Google Pixel 4',          esim: true, region: 'GLOBAL' },
-  { brand: 'google', modelKey: 'PIXEL_4A',          displayName: 'Google Pixel 4a',         esim: true, region: 'GLOBAL' },
-  { brand: 'google', modelKey: 'PIXEL_4_XL',        displayName: 'Google Pixel 4 XL',       esim: true, region: 'GLOBAL' },
-  { brand: 'google', modelKey: 'PIXEL_3A',          displayName: 'Google Pixel 3a',         esim: true, region: 'GLOBAL' },
-  { brand: 'google', modelKey: 'PIXEL_3A_XL',       displayName: 'Google Pixel 3a XL',      esim: true, region: 'GLOBAL' },
-  { brand: 'google', modelKey: 'PIXEL_3',           displayName: 'Google Pixel 3',          esim: true, region: 'GLOBAL' },
-  { brand: 'google', modelKey: 'PIXEL_3_XL',        displayName: 'Google Pixel 3 XL',       esim: true, region: 'GLOBAL' },
+      { brand: 'samsung', modelKey: 'GALAXY_XCOVER_7',        displayName: 'Samsung Galaxy XCover 7',         esim: true, region: 'GLOBAL' },
 
-  // -------
-  // HUAWEI
-  // -------
-  { brand: 'huawei', modelKey: 'P40',              displayName: 'Huawei P40',           esim: true, region: 'GLOBAL' },
-  { brand: 'huawei', modelKey: 'P40_PRO',          displayName: 'Huawei P40 Pro',       esim: true, region: 'GLOBAL' },
-  { brand: 'huawei', modelKey: 'MATE_40_PRO',      displayName: 'Huawei Mate 40 Pro',   esim: true, region: 'GLOBAL' },
+      { brand: 'samsung', modelKey: 'GALAXY_A56_5G_2024',     displayName: 'Galaxy A56 5G (2024+)',           esim: true, region: 'GLOBAL' },
+      { brand: 'samsung', modelKey: 'GALAXY_A55_5G_2024',     displayName: 'Galaxy A55 5G (2024+)',           esim: true, region: 'GLOBAL' },
+      { brand: 'samsung', modelKey: 'GALAXY_A54_5G_2024',     displayName: 'Galaxy A54 5G (2024+)',           esim: true, region: 'GLOBAL' },
+      { brand: 'samsung', modelKey: 'GALAXY_A35_5G_2024',     displayName: 'Galaxy A35 5G (2024+)',           esim: true, region: 'GLOBAL' },
+      { brand: 'samsung', modelKey: 'GALAXY_A23_5G_2024',     displayName: 'Galaxy A23 5G (2024+)',           esim: true, region: 'GLOBAL' },
 
-  // --------
-  // HAMMER & myPhone
-  // --------
-  { brand: 'hammer',  modelKey: 'EXPLORER_PRO',     displayName: 'HAMMER Explorer PRO',  esim: true, region: 'GLOBAL' },
-  { brand: 'hammer',  modelKey: 'BLADE_3',          displayName: 'HAMMER Blade 3',       esim: true, region: 'GLOBAL' },
-  { brand: 'hammer',  modelKey: 'BLADE_5G',         displayName: 'HAMMER Blade 5G',      esim: true, region: 'GLOBAL' },
-  { brand: 'myphone', modelKey: 'NOW_ESIM',         displayName: 'myPhone NOW eSIM',     esim: true, region: 'GLOBAL' },
+      // XIAOMI
+      { brand: 'xiaomi', modelKey: 'MI_12T_PRO',        displayName: 'Xiaomi 12T Pro',       esim: true, region: 'GLOBAL' },
+      { brand: 'xiaomi', modelKey: 'MI_13',             displayName: 'Xiaomi 13',            esim: true, region: 'GLOBAL' },
+      { brand: 'xiaomi', modelKey: 'MI_13_LITE',        displayName: 'Xiaomi 13 lite',       esim: true, region: 'GLOBAL' },
+      { brand: 'xiaomi', modelKey: 'MI_13_PRO',         displayName: 'Xiaomi 13 Pro',        esim: true, region: 'GLOBAL' },
+      { brand: 'xiaomi', modelKey: 'MI_14',             displayName: 'Xiaomi 14',            esim: true, region: 'GLOBAL' },
+      { brand: 'xiaomi', modelKey: 'MI_14_PRO',         displayName: 'Xiaomi 14 Pro',        esim: true, region: 'GLOBAL' },
+      { brand: 'xiaomi', modelKey: 'MI_15',             displayName: 'Xiaomi 15',            esim: true, region: 'GLOBAL' },
+      { brand: 'xiaomi', modelKey: 'MI_15_ULTRA',       displayName: 'Xiaomi 15 Ultra',      esim: true, region: 'GLOBAL' },
 
-  // --------
-  // MOTOROLA
-  // --------
-  { brand: 'motorola', modelKey: 'MOTO_G54',        displayName: 'Moto G54',            esim: true, region: 'GLOBAL' },
-  { brand: 'motorola', modelKey: 'MOTO_G85',        displayName: 'Moto G85',            esim: true, region: 'GLOBAL' },
-  { brand: 'motorola', modelKey: 'EDGE_FUSION',     displayName: 'Edge Fusion',         esim: true, region: 'GLOBAL' },
-  { brand: 'motorola', modelKey: 'EDGE_50_PRO',     displayName: 'Edge 50 Pro',         esim: true, region: 'GLOBAL' },
-  { brand: 'motorola', modelKey: 'EDGE_50_NEO',     displayName: 'Edge 50 Neo',         esim: true, region: 'GLOBAL' },
-  { brand: 'motorola', modelKey: 'EDGE_40_NEO',     displayName: 'Edge 40 Neo',         esim: true, region: 'GLOBAL' },
-  { brand: 'motorola', modelKey: 'EDGE_40_PRO',     displayName: 'Edge 40 Pro',         esim: true, region: 'GLOBAL' },
-  { brand: 'motorola', modelKey: 'EDGE_PLUS',       displayName: 'Edge+',               esim: true, region: 'GLOBAL' },
-  { brand: 'motorola', modelKey: 'RAZR_40_ULTRA',   displayName: 'Razr 40 Ultra',       esim: true, region: 'GLOBAL' },
-  { brand: 'motorola', modelKey: 'RAZR_2022',       displayName: 'Razr 2022',           esim: true, region: 'GLOBAL' },
-  { brand: 'motorola', modelKey: 'RAZR_2019',       displayName: 'Razr 2019',           esim: true, region: 'GLOBAL' },
-  { brand: 'motorola', modelKey: 'RAZR_5G',         displayName: 'Razr 5G',             esim: true, region: 'GLOBAL' },
-  { brand: 'motorola', modelKey: 'G53_5G',          displayName: 'G53 5G',              esim: true, region: 'GLOBAL' },
+      // GOOGLE PIXEL
+      { brand: 'google', modelKey: 'PIXEL_9_PRO_FOLD',  displayName: 'Google Pixel 9 Pro Fold', esim: true, region: 'GLOBAL' },
+      { brand: 'google', modelKey: 'PIXEL_9_PRO',       displayName: 'Google Pixel 9 Pro',      esim: true, region: 'GLOBAL' },
+      { brand: 'google', modelKey: 'PIXEL_9',           displayName: 'Google Pixel 9',          esim: true, region: 'GLOBAL' },
+      { brand: 'google', modelKey: 'PIXEL_8_PRO',       displayName: 'Google Pixel 8 Pro',      esim: true, region: 'GLOBAL' },
+      { brand: 'google', modelKey: 'PIXEL_8',           displayName: 'Google Pixel 8',          esim: true, region: 'GLOBAL' },
+      { brand: 'google', modelKey: 'PIXEL_7_PRO',       displayName: 'Google Pixel 7 Pro',      esim: true, region: 'GLOBAL' },
+      { brand: 'google', modelKey: 'PIXEL_7',           displayName: 'Google Pixel 7',          esim: true, region: 'GLOBAL' },
+      { brand: 'google', modelKey: 'PIXEL_6A',          displayName: 'Google Pixel 6a',         esim: true, region: 'GLOBAL' },
+      { brand: 'google', modelKey: 'PIXEL_6',           displayName: 'Google Pixel 6',          esim: true, region: 'GLOBAL' },
+      { brand: 'google', modelKey: 'PIXEL_5',           displayName: 'Google Pixel 5',          esim: true, region: 'GLOBAL' },
+      { brand: 'google', modelKey: 'PIXEL_4',           displayName: 'Google Pixel 4',          esim: true, region: 'GLOBAL' },
+      { brand: 'google', modelKey: 'PIXEL_4A',          displayName: 'Google Pixel 4a',         esim: true, region: 'GLOBAL' },
+      { brand: 'google', modelKey: 'PIXEL_4_XL',        displayName: 'Google Pixel 4 XL',       esim: true, region: 'GLOBAL' },
+      { brand: 'google', modelKey: 'PIXEL_3A',          displayName: 'Google Pixel 3a',         esim: true, region: 'GLOBAL' },
+      { brand: 'google', modelKey: 'PIXEL_3A_XL',       displayName: 'Google Pixel 3a XL',      esim: true, region: 'GLOBAL' },
+      { brand: 'google', modelKey: 'PIXEL_3',           displayName: 'Google Pixel 3',          esim: true, region: 'GLOBAL' },
+      { brand: 'google', modelKey: 'PIXEL_3_XL',        displayName: 'Google Pixel 3 XL',       esim: true, region: 'GLOBAL' },
 
-  // ------
-  // OPPO
-  // ------
-  { brand: 'oppo', modelKey: 'RENO6_PRO_5G',        displayName: 'Reno6 Pro 5G',        esim: true, region: 'GLOBAL' },
-  { brand: 'oppo', modelKey: 'A55S_5G',             displayName: 'A55s 5G',             esim: true, region: 'GLOBAL' },
-  { brand: 'oppo', modelKey: 'FIND_N2_FLIP',        displayName: 'Find N2 Flip',        esim: true, region: 'GLOBAL' },
-  { brand: 'oppo', modelKey: 'FIND_X5',             displayName: 'Find X5',             esim: true, region: 'GLOBAL' },
-  { brand: 'oppo', modelKey: 'FIND_X5_PRO',         displayName: 'Find X5 Pro',         esim: true, region: 'GLOBAL' },
-  { brand: 'oppo', modelKey: 'RENO_A',              displayName: 'Reno A',              esim: true, region: 'GLOBAL' },
+      // HUAWEI
+      { brand: 'huawei', modelKey: 'P40',              displayName: 'Huawei P40',           esim: true, region: 'GLOBAL' },
+      { brand: 'huawei', modelKey: 'P40_PRO',          displayName: 'Huawei P40 Pro',       esim: true, region: 'GLOBAL' },
+      { brand: 'huawei', modelKey: 'MATE_40_PRO',      displayName: 'Huawei Mate 40 Pro',   esim: true, region: 'GLOBAL' },
 
-  // ------
-  // SONY
-  // ------
-  { brand: 'sony', modelKey: 'XPERIA_1_V',          displayName: 'Xperia 1 V',          esim: true, region: 'GLOBAL' },
-  { brand: 'sony', modelKey: 'XPERIA_1_IV',         displayName: 'Xperia 1 IV',         esim: true, region: 'GLOBAL' },
-  { brand: 'sony', modelKey: 'XPERIA_5_IV',         displayName: 'Xperia 5 IV',         esim: true, region: 'GLOBAL' },
-  { brand: 'sony', modelKey: 'XPERIA_10_III_LITE',  displayName: 'Xperia 10 III Lite',  esim: true, region: 'GLOBAL' },
+      // HAMMER & myPhone
+      { brand: 'hammer',  modelKey: 'EXPLORER_PRO',     displayName: 'HAMMER Explorer PRO',  esim: true, region: 'GLOBAL' },
+      { brand: 'hammer',  modelKey: 'BLADE_3',          displayName: 'HAMMER Blade 3',       esim: true, region: 'GLOBAL' },
+      { brand: 'hammer',  modelKey: 'BLADE_5G',         displayName: 'HAMMER Blade 5G',      esim: true, region: 'GLOBAL' },
+      { brand: 'myphone', modelKey: 'NOW_ESIM',         displayName: 'myPhone NOW eSIM',     esim: true, region: 'GLOBAL' },
 
-  // --------
-  // ONEPLUS
-  // --------
-  { brand: 'oneplus', modelKey: 'ONEPLUS_12',       displayName: 'OnePlus 12',          esim: true, region: 'GLOBAL' },
-  { brand: 'oneplus', modelKey: 'ONEPLUS_11',       displayName: 'OnePlus 11',          esim: true, region: 'GLOBAL' },
-];
+      // MOTOROLA
+      { brand: 'motorola', modelKey: 'MOTO_G54',        displayName: 'Moto G54',            esim: true, region: 'GLOBAL' },
+      { brand: 'motorola', modelKey: 'MOTO_G85',        displayName: 'Moto G85',            esim: true, region: 'GLOBAL' },
+      { brand: 'motorola', modelKey: 'EDGE_FUSION',     displayName: 'Edge Fusion',         esim: true, region: 'GLOBAL' },
+      { brand: 'motorola', modelKey: 'EDGE_50_PRO',     displayName: 'Edge 50 Pro',         esim: true, region: 'GLOBAL' },
+      { brand: 'motorola', modelKey: 'EDGE_50_NEO',     displayName: 'Edge 50 Neo',         esim: true, region: 'GLOBAL' },
+      { brand: 'motorola', modelKey: 'EDGE_40_NEO',     displayName: 'Edge 40 Neo',         esim: true, region: 'GLOBAL' },
+      { brand: 'motorola', modelKey: 'EDGE_40_PRO',     displayName: 'Edge 40 Pro',         esim: true, region: 'GLOBAL' },
+      { brand: 'motorola', modelKey: 'EDGE_PLUS',       displayName: 'Edge+',               esim: true, region: 'GLOBAL' },
+      { brand: 'motorola', modelKey: 'RAZR_40_ULTRA',   displayName: 'Razr 40 Ultra',       esim: true, region: 'GLOBAL' },
+      { brand: 'motorola', modelKey: 'RAZR_2022',       displayName: 'Razr 2022',           esim: true, region: 'GLOBAL' },
+      { brand: 'motorola', modelKey: 'RAZR_2019',       displayName: 'Razr 2019',           esim: true, region: 'GLOBAL' },
+      { brand: 'motorola', modelKey: 'RAZR_5G',         displayName: 'Razr 5G',             esim: true, region: 'GLOBAL' },
+      { brand: 'motorola', modelKey: 'G53_5G',          displayName: 'G53 5G',              esim: true, region: 'GLOBAL' },
 
-    function normalize(str) {
-      return (str || '').toString().toUpperCase().replace(/[\s\-_.]/g, '');
+      // OPPO
+      { brand: 'oppo', modelKey: 'RENO6_PRO_5G',        displayName: 'Reno6 Pro 5G',        esim: true, region: 'GLOBAL' },
+      { brand: 'oppo', modelKey: 'A55S_5G',             displayName: 'A55s 5G',             esim: true, region: 'GLOBAL' },
+      { brand: 'oppo', modelKey: 'FIND_N2_FLIP',        displayName: 'Find N2 Flip',        esim: true, region: 'GLOBAL' },
+      { brand: 'oppo', modelKey: 'FIND_X5',             displayName: 'Find X5',             esim: true, region: 'GLOBAL' },
+      { brand: 'oppo', modelKey: 'FIND_X5_PRO',         displayName: 'Find X5 Pro',         esim: true, region: 'GLOBAL' },
+      { brand: 'oppo', modelKey: 'RENO_A',              displayName: 'Reno A',              esim: true, region: 'GLOBAL' },
+
+      // SONY
+      { brand: 'sony', modelKey: 'XPERIA_1_V',          displayName: 'Xperia 1 V',          esim: true, region: 'GLOBAL' },
+      { brand: 'sony', modelKey: 'XPERIA_1_IV',         displayName: 'Xperia 1 IV',         esim: true, region: 'GLOBAL' },
+      { brand: 'sony', modelKey: 'XPERIA_5_IV',         displayName: 'Xperia 5 IV',         esim: true, region: 'GLOBAL' },
+      { brand: 'sony', modelKey: 'XPERIA_10_III_LITE',  displayName: 'Xperia 10 III Lite',  esim: true, region: 'GLOBAL' },
+
+      // ONEPLUS
+      { brand: 'oneplus', modelKey: 'ONEPLUS_12',       displayName: 'OnePlus 12',          esim: true, region: 'GLOBAL' },
+      { brand: 'oneplus', modelKey: 'ONEPLUS_11',       displayName: 'OnePlus 11',          esim: true, region: 'GLOBAL' }
+    ];
+
+    // -------------------------
+    // לוגיקה של הטופס והבדיקה
+    // -------------------------
+
+    const brandSelect  = document.getElementById('brandSelect');
+    const modelSelect  = document.getElementById('modelSelect');
+    const regionSelect = document.getElementById('regionSelect');
+    const checkBtn     = document.getElementById('checkBtn');
+
+    const resultBox   = document.getElementById('resultBox');
+    const resultTitle = document.getElementById('resultTitle');
+    const resultText  = document.getElementById('resultText');
+    const resultTags  = document.getElementById('resultTags');
+
+    // מילוי רשימת היצרנים
+    function initBrands() {
+      const brands = Array.from(new Set(ESIM_DEVICES.map(d => d.brand)))
+        .sort((a, b) => a.localeCompare(b));
+
+      brands.forEach(brand => {
+        const opt = document.createElement('option');
+        opt.value = brand;
+        opt.textContent = brandLabel(brand);
+        brandSelect.appendChild(opt);
+      });
     }
 
-    function detectRegionFromSelect() {
-      const val = document.getElementById('region').value;
-      return val || 'ANY';
+    function brandLabel(brand) {
+      const map = {
+        apple: 'Apple',
+        samsung: 'Samsung',
+        xiaomi: 'Xiaomi',
+        google: 'Google (Pixel)',
+        huawei: 'Huawei',
+        hammer: 'HAMMER',
+        myphone: 'myPhone',
+        motorola: 'Motorola',
+        oppo: 'OPPO',
+        sony: 'Sony Xperia',
+        oneplus: 'OnePlus'
+      };
+      return map[brand] || brand;
     }
 
-    // מילוי רשימת מודלים לפי יצרן
-    function populateModelsForBrand(brand) {
-      const modelSelect = document.getElementById('model');
+    function onBrandChange() {
+      const brand = brandSelect.value;
       modelSelect.innerHTML = '';
+      const placeholder = document.createElement('option');
+      placeholder.value = '';
+      placeholder.textContent = brand ? 'בחר דגם…' : 'בחר קודם יצרן…';
+      modelSelect.appendChild(placeholder);
 
-      if (!brand || brand === 'other') {
+      if (!brand) {
         modelSelect.disabled = true;
-        modelSelect.innerHTML = '<option value="">בחר יצרן קודם...</option>';
         return;
       }
 
-      // אוסף דגמים ייחודיים לפי modelKey
-      const map = new Map();
-      deviceDb
+      const models = ESIM_DEVICES
         .filter(d => d.brand === brand)
-        .forEach(d => {
-          const key = d.modelKey;
-          if (!map.has(key)) {
-            map.set(key, d.displayName);
-          }
-        });
+        .sort((a, b) => a.displayName.localeCompare(b.displayName, 'en'));
 
-      const models = Array.from(map.entries()).map(([modelKey, displayName]) => ({
-        modelKey,
-        displayName
-      }));
-
-      // ממיינים לפי שם תצוגה
-      models.sort((a, b) => a.displayName.localeCompare(b.displayName, 'he'));
-
-      // מוסיפים placeholder
-      const placeholder = document.createElement('option');
-      placeholder.value = '';
-      placeholder.textContent = 'בחר דגם...';
-      modelSelect.appendChild(placeholder);
-
-      models.forEach(m => {
+      models.forEach(device => {
         const opt = document.createElement('option');
-        opt.value = m.modelKey;
-        opt.textContent = m.displayName;
+        opt.value = device.modelKey;
+        opt.textContent = device.displayName;
         modelSelect.appendChild(opt);
       });
 
       modelSelect.disabled = false;
     }
 
-    function checkDevice() {
-      const brand = document.getElementById('brand').value;
-      const modelKey = document.getElementById('model').value;
-      const region = detectRegionFromSelect();
-      const resultBox = document.getElementById('result');
+    function checkCompatibility() {
+      const brand = brandSelect.value;
+      const modelKey = modelSelect.value;
+      const region = regionSelect.value;
 
-      resultBox.style.display = 'none';
-      resultBox.className = 'result';
-
-      if (!brand || !modelKey) {
-        resultBox.style.display = 'block';
-        resultBox.classList.add('bad');
-        resultBox.innerHTML =
-          '<div class="result-title">חסר מידע</div>' +
-          '<div>יש לבחור יצרן ודגם לפני הבדיקה.</div>';
+      if (!brand) {
+        alert('נא לבחור יצרן.');
+        return;
+      }
+      if (!modelKey) {
+        alert('נא לבחור דגם ספציפי.');
         return;
       }
 
-      // מוצאים כל הרשומות הרלוונטיות למותג + דגם
-      let candidates = deviceDb.filter(d => d.brand === brand && d.modelKey === modelKey);
+      const device = ESIM_DEVICES.find(
+        d => d.brand === brand && d.modelKey === modelKey
+      );
 
-      if (candidates.length === 0) {
-        resultBox.style.display = 'block';
-        resultBox.classList.add('unknown');
-        resultBox.innerHTML =
-          '<div class="result-title">לא מצאנו את הדגם במאגר</div>' +
-          '<div>ייתכן שהדגם חדש או נדיר, או שאינו מופיע עדיין בבנק הטלפונים. מומלץ לבדוק ידנית בהגדרות המכשיר אם קיימת אפשרות הוספת eSIM או שורת EID.</div>';
-        return;
+      let regionNote = '';
+      if (region === 'CN_HK') {
+        regionNote =
+          'המכשיר נקנה בסין / הונג קונג – בחלק מהדגמים הסיניים ייתכן שחלק מהמאפייני eSIM חסומים. מומלץ לוודא מול היבואן.';
+      } else if (region === 'US_CA') {
+        regionNote =
+          'מכשירי iPhone מסוימים שנמכרו בארה״ב (דגמים חדשים) מגיעים עם eSIM בלבד – ללא מגירת SIM פיזית.';
       }
 
-      let match = null;
-      if (region !== 'ANY') {
-        match =
-          candidates.find(c => c.region === region) ||
-          candidates.find(c => c.region === 'GLOBAL') ||
-          candidates[0];
+      if (device && device.esim) {
+        resultBox.className = 'result ok';
+        resultTitle.textContent = 'המכשיר נמצא במאגר כתומך eSIM ✔';
+        resultText.textContent = `דגם: ${device.displayName} (${brandLabel(device.brand)})`;
       } else {
-        match =
-          candidates.find(c => c.region === 'GLOBAL') ||
-          candidates[0];
+        // זה כמעט לא יקרה כי כל האופציות בטופס מגיעות מהמאגרים,
+        // אבל נשאיר הגנה למקרה שתרצה לאפשר חיפוש חופשי בעתיד.
+        resultBox.className = 'result no';
+        resultTitle.textContent = 'המכשיר לא נמצא במאגר התומכים ❌';
+        resultText.textContent =
+          'ייתכן שהדגם לא תומך eSIM, או שהוא פשוט לא עודכן עדיין במערכת.';
       }
 
+      // תגים קטנים
+      const tags = [];
+      tags.push(`<span class="tag">יצרן: ${brandLabel(brand)}</span>`);
+      if (region === 'IL_EU') tags.push('<span class="tag">נקנה בישראל / אירופה</span>');
+      if (region === 'US_CA') tags.push('<span class="tag">נקנה בארה״ב / קנדה</span>');
+      if (region === 'CN_HK') tags.push('<span class="tag">נקנה בסין / הונג קונג</span>');
+      if (region === 'OTHER') tags.push('<span class="tag">אזור אחר</span>');
+
+      if (regionNote) tags.push(`<span class="tag">${regionNote}</span>`);
+
+      resultTags.innerHTML = tags.join(' ');
       resultBox.style.display = 'block';
-
-      if (match.esim) {
-        resultBox.classList.add('ok');
-        resultBox.innerHTML =
-          '<div class="result-title">כנראה שהמכשיר תומך eSIM ✅</div>' +
-          '<div>יצרן: ' + brand.toUpperCase() + '</div>' +
-          '<div>דגם שנבחר: ' + document.getElementById('model').options[document.getElementById('model').selectedIndex].text + '</div>' +
-          (match.note ? '<div class="notes">' + match.note + '</div>' : '') +
-          '<div class="notes">מומלץ עדיין לוודא בהגדרות המכשיר בפועל (חיפוש EID / הוספת eSIM).</div>';
-      } else {
-        resultBox.classList.add('bad');
-        resultBox.innerHTML =
-          '<div class="result-title">כנראה שהמכשיר לא תומך eSIM ❌</div>' +
-          '<div>יצרן: ' + brand.toUpperCase() + '</div>' +
-          '<div>דגם שנבחר: ' + document.getElementById('model').options[document.getElementById('model').selectedIndex].text + '</div>' +
-          (match.note ? '<div class="notes">' + match.note + '</div>' : '') +
-          '<div class="notes">אם אתה בטוח שהמכשיר כן תומך, ייתכן שמדובר בגרסה/אזור אחרים שלא הוגדרו עדיין בבנק.</div>';
-      }
     }
 
-    document.getElementById('brand').addEventListener('change', function () {
-      populateModelsForBrand(this.value);
-      // איפוס תוצאה כשמשנים יצרן
-      const resultBox = document.getElementById('result');
-      resultBox.style.display = 'none';
-      resultBox.className = 'result';
-    });
+    // חיבור אירועים
+    brandSelect.addEventListener('change', onBrandChange);
+    checkBtn.addEventListener('click', checkCompatibility);
 
-    document.getElementById('checkBtn').addEventListener('click', checkDevice);
+    // אתחול
+    initBrands();
   </script>
 </body>
 </html>
