@@ -55,7 +55,6 @@
     background: #004fcc;
   }
 </style>
-
 </head>
 <body>
 
@@ -88,17 +87,13 @@
   </div>
 
   <button onclick="checkCompatibility()">בדיקת תאימות</button>
-
 </div>
 
-
 <script>
-
 /* -----------------------------------------------------
-   מאגר מכשירים מלא לפי כל התמונות ששלחת
+   מאגר מכשירים – כל המותגים והדגמים ששלחת
 ----------------------------------------------------- */
 const ESIM_DEVICES = [
-
   /* ------------ APPLE ------------ */
   { brand:'apple', modelKey:'IPHONE_XS', displayName:'iPhone XS', esim:true },
   { brand:'apple', modelKey:'IPHONE_XS_MAX', displayName:'iPhone XS Max', esim:true },
@@ -140,7 +135,6 @@ const ESIM_DEVICES = [
   { brand:'apple', modelKey:'IPHONE_17_PRO', displayName:'iPhone 17 Pro', esim:true },
   { brand:'apple', modelKey:'IPHONE_17_PRO_MAX', displayName:'iPhone 17 Pro Max', esim:true },
 
-
   /* ------------ SAMSUNG ------------ */
   { brand:'samsung', modelKey:'S24', displayName:'Samsung Galaxy S24', esim:true },
   { brand:'samsung', modelKey:'S24_PLUS', displayName:'Samsung Galaxy S24 Plus', esim:true },
@@ -161,17 +155,15 @@ const ESIM_DEVICES = [
   { brand:'samsung', modelKey:'Z_FLIP_7', displayName:'Galaxy Z Flip 7', esim:true },
   { brand:'samsung', modelKey:'Z_FOLD_7', displayName:'Galaxy Z Fold 7', esim:true },
 
-
   /* ------------ XIAOMI ------------ */
   { brand:'xiaomi', modelKey:'XIAOMI_12T_PRO', displayName:'Xiaomi 12T Pro', esim:true },
   { brand:'xiaomi', modelKey:'XIAOMI_13', displayName:'Xiaomi 13', esim:true },
-  { brand:'xiaomi', modelKey:'XIAOMI_13_LITE', displayName:'Xiaomi 13 Lite', esim:true },
+  { brand:'xiaomi', modelKey:'XIAOMI_13_LITE', displayName:'Xiaomi 13 lite', esim:true },
   { brand:'xiaomi', modelKey:'XIAOMI_13_PRO', displayName:'Xiaomi 13 Pro (חלק מהדגמים)', esim:true },
   { brand:'xiaomi', modelKey:'XIAOMI_14', displayName:'Xiaomi 14', esim:true },
   { brand:'xiaomi', modelKey:'XIAOMI_14_PRO', displayName:'Xiaomi 14 Pro', esim:true },
   { brand:'xiaomi', modelKey:'XIAOMI_15', displayName:'Xiaomi 15', esim:true },
   { brand:'xiaomi', modelKey:'XIAOMI_15_ULTRA', displayName:'Xiaomi 15 Ultra', esim:true },
-
 
   /* ------------ GOOGLE PIXEL ------------ */
   { brand:'google', modelKey:'PIXEL_3', displayName:'Google Pixel 3', esim:true },
@@ -183,36 +175,65 @@ const ESIM_DEVICES = [
   { brand:'google', modelKey:'PIXEL_8', displayName:'Google Pixel 8', esim:true },
   { brand:'google', modelKey:'PIXEL_9', displayName:'Google Pixel 9', esim:true },
 
+  /* ------------ HUAWEI ------------ */
+  { brand:'huawei', modelKey:'HUAWEI_P40', displayName:'Huawei P40', esim:true },
+  { brand:'huawei', modelKey:'HUAWEI_P40_PRO', displayName:'Huawei P40 Pro', esim:true },
+  { brand:'huawei', modelKey:'HUAWEI_MATE_40_PRO', displayName:'Huawei Mate 40 Pro', esim:true },
+
+  /* ------------ MOTOROLA ------------ */
+  { brand:'motorola', modelKey:'MOTO_G54', displayName:'Moto G54', esim:true },
+  { brand:'motorola', modelKey:'MOTO_G85', displayName:'Moto G85', esim:true },
+  { brand:'motorola', modelKey:'EDGE_FUSION', displayName:'Edge Fusion', esim:true },
+  { brand:'motorola', modelKey:'EDGE_50_PRO', displayName:'Edge 50 Pro', esim:true },
+  { brand:'motorola', modelKey:'EDGE_50_NEO', displayName:'Edge 50 Neo', esim:true },
+  { brand:'motorola', modelKey:'EDGE_40_NEO', displayName:'Edge 40 Neo', esim:true },
+  { brand:'motorola', modelKey:'EDGE_40_PRO', displayName:'Edge 40 Pro', esim:true },
+  { brand:'motorola', modelKey:'EDGE_PLUS_EDGE', displayName:'+Edge', esim:true },
+  { brand:'motorola', modelKey:'RAZR_40_ULTRA', displayName:'Razr 40 Ultra', esim:true },
+  { brand:'motorola', modelKey:'RAZR_2022', displayName:'Razr 2022', esim:true },
+  { brand:'motorola', modelKey:'RAZR_2019', displayName:'Razr 2019', esim:true },
+  { brand:'motorola', modelKey:'RAZR_5G', displayName:'Razr 5G', esim:true },
+  { brand:'motorola', modelKey:'G53_5G', displayName:'G53 5G', esim:true },
+
+  /* ------------ OPPO ------------ */
+  { brand:'oppo', modelKey:'RENO6_PRO_5G', displayName:'Reno6 Pro 5G', esim:true },
+  { brand:'oppo', modelKey:'A55S_5G', displayName:'A55s 5G', esim:true },
+  { brand:'oppo', modelKey:'FIND_N2_FLIP', displayName:'Find N2 Flip', esim:true },
+  { brand:'oppo', modelKey:'FIND_X5', displayName:'Find X5', esim:true },
+  { brand:'oppo', modelKey:'FIND_X5_PRO', displayName:'Find X5 Pro', esim:true },
+  { brand:'oppo', modelKey:'RENO_A', displayName:'Reno A', esim:true },
+
+  /* ------------ SONY ------------ */
+  { brand:'sony', modelKey:'XPERIA_1_V', displayName:'Xperia 1 V', esim:true },
+  { brand:'sony', modelKey:'XPERIA_1_IV', displayName:'Xperia 1 IV', esim:true },
+  { brand:'sony', modelKey:'XPERIA_5_IV', displayName:'Xperia 5 IV', esim:true },
+  { brand:'sony', modelKey:'XPERIA_10_III_LITE', displayName:'Xperia 10 III Lite', esim:true },
 
   /* ------------ ONEPLUS ------------ */
   { brand:'oneplus', modelKey:'ONEPLUS_11', displayName:'OnePlus 11', esim:true },
   { brand:'oneplus', modelKey:'ONEPLUS_12', displayName:'OnePlus 12', esim:true }
-
 ];
 
 /* -----------------------------------------------------
-   מילוי רשימת דגמים לפי יצרן
+   מילוי רשימת הדגמים לפי יצרן
 ----------------------------------------------------- */
 const brandSelect = document.getElementById("brandSelect");
 const modelSelect = document.getElementById("modelSelect");
 
 brandSelect.addEventListener("change", () => {
   const brand = brandSelect.value;
-
   modelSelect.innerHTML = "";
   modelSelect.disabled = true;
 
   if (!brand) {
-    modelSelect.innerHTML =
-      '<option value="">בחר יצרן קודם…</option>';
+    modelSelect.innerHTML = '<option value="">בחר יצרן קודם…</option>';
     return;
   }
 
   const models = ESIM_DEVICES.filter(d => d.brand === brand);
 
   if (models.length === 0) {
-    modelSelect.innerHTML =
-      '<option value="">אין דגמים זמינים</option>';
+    modelSelect.innerHTML = '<option value="">אין דגמים זמינים</option>';
     return;
   }
 
@@ -226,9 +247,8 @@ brandSelect.addEventListener("change", () => {
   });
 });
 
-
 /* -----------------------------------------------------
-    פונקציית בדיקת התאימות
+   בדיקת התאימות
 ----------------------------------------------------- */
 function checkCompatibility() {
   const brand = brandSelect.value;
@@ -249,8 +269,6 @@ function checkCompatibility() {
     alert("❌ המכשיר לא תומך eSIM");
   }
 }
-
 </script>
-
 </body>
 </html>
