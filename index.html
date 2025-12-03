@@ -407,31 +407,33 @@
     }
 
     function onBrandChange() {
-      const brand = brandSelect.value;
-      modelSelect.innerHTML = '';
-      const placeholder = document.createElement('option');
-      placeholder.value = '';
-      placeholder.textContent = brand ? 'בחר דגם…' : 'בחר קודם יצרן…';
-      modelSelect.appendChild(placeholder);
+    const brand = brandSelect.value;
+    modelSelect.innerHTML = '';
+    const placeholder = document.createElement('option');
+    placeholder.value = '';
+    placeholder.textContent = brand ? 'בחר דגם…' : 'בחר קודם יצרן…';
+    modelSelect.appendChild(placeholder);
 
-      if (!brand) {
-        modelSelect.disabled = true;
-        return;
-      }
-
-      const models = ESIM_DEVICES
-        .filter(d => d.brand === brand)
-        .sort((a, b) => a.displayName.localeCompare(b.displayName, 'en'));
-
-      models.forEach(device => {
-        const opt = document.createElement('option');
-        opt.value = device.modelKey;
-        opt.textContent = device.displayName;
-        modelSelect.appendChild(opt);
-      });
-
-      modelSelect.disabled = false;
+    if (!brand) {
+      modelSelect.disabled = true;
+      return;
     }
+
+    // בלי הפרמטר 'en' – כדי לא להפיל דפדפנים ישנים
+    const models = ESIM_DEVICES
+      .filter(d => d.brand === brand)
+      .sort((a, b) => a.displayName.localeCompare(b.displayName));
+
+    models.forEach(device => {
+      const opt = document.createElement('option');
+      opt.value = device.modelKey;
+      opt.textContent = device.displayName;
+      modelSelect.appendChild(opt);
+    });
+
+    // כאן אנחנו מבטלים את ה-disabled אחרי שהמירוץ עבר בלי שגיאות
+    modelSelect.disabled = false;
+  }
 
     function checkCompatibility() {
       const brand = brandSelect.value;
