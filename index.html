@@ -6,502 +6,315 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
     body {
-      margin: 0;
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: #f4f5f7;
-      color: #222;
+      background: #f3f4f6;
+      margin: 0;
+      padding: 0;
     }
-
-    .page {
-      max-width: 960px;
-      margin: 0 auto;
-      padding: 24px 16px 48px;
+    .container {
+      max-width: 480px;
+      margin: 40px auto;
+      background: #ffffff;
+      padding: 24px 20px;
+      border-radius: 16px;
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.12);
     }
-
-    header {
-      margin-bottom: 24px;
-    }
-
     h1 {
-      font-size: 1.8rem;
-      margin: 0 0 8px;
+      font-size: 22px;
+      margin-top: 0;
+      margin-bottom: 8px;
+      text-align: center;
     }
-
-    header p {
-      margin: 4px 0;
-      color: #555;
-    }
-
-    .card {
-      background: #fff;
-      border-radius: 12px;
-      padding: 20px;
+    p.subtitle {
+      margin-top: 0;
       margin-bottom: 20px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      font-size: 13px;
+      color: #6b7280;
+      text-align: center;
     }
-
-    .card-title {
-      font-weight: 600;
-      margin-bottom: 10px;
-      font-size: 1.05rem;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      padding: 2px 8px;
-      border-radius: 999px;
-      font-size: 0.8rem;
-    }
-
-    .badge-auto {
-      background: #e3f2fd;
-      color: #0d47a1;
-    }
-
-    .badge-manual {
-      background: #ede7f6;
-      color: #4a148c;
-    }
-
-    .status {
-      margin-top: 8px;
-      padding: 10px 12px;
-      border-radius: 10px;
-      border-right: 4px solid transparent;
-      font-size: 0.95rem;
-      line-height: 1.5;
-      background: #f7f7f8;
-    }
-
-    .status.ok {
-      background: #e8f5e9;
-      border-right-color: #2e7d32;
-      color: #1b5e20;
-    }
-
-    .status.error {
-      background: #ffebee;
-      border-right-color: #c62828;
-      color: #b71c1c;
-    }
-
-    .status.info {
-      background: #fff8e1;
-      border-right-color: #ff8f00;
-      color: #e65100;
-    }
-
-    .device-details {
-      margin-top: 6px;
-      font-size: 0.9rem;
-      color: #555;
-    }
-
-    .label {
+    label {
       display: block;
-      margin-top: 10px;
       margin-bottom: 4px;
-      font-size: 0.9rem;
-      font-weight: 500;
+      font-size: 14px;
+      font-weight: 600;
+      color: #374151;
     }
-
-    select, button {
-      font-family: inherit;
-      font-size: 0.95rem;
-    }
-
-    select {
+    select, input {
       width: 100%;
-      padding: 8px 10px;
-      border-radius: 8px;
-      border: 1px solid #ccc;
+      padding: 10px 12px;
+      margin-bottom: 14px;
+      border-radius: 10px;
+      border: 1px solid #d1d5db;
+      font-size: 14px;
       box-sizing: border-box;
-      background: #fafafa;
     }
-
+    select:focus, input:focus {
+      outline: none;
+      border-color: #2563eb;
+      box-shadow: 0 0 0 1px #2563eb33;
+    }
+    .hint {
+      font-size: 11px;
+      color: #6b7280;
+      margin-top: -8px;
+      margin-bottom: 10px;
+    }
     button {
-      margin-top: 14px;
-      padding: 10px 16px;
+      width: 100%;
+      padding: 12px;
       border-radius: 999px;
       border: none;
+      background: #2563eb;
+      color: #ffffff;
+      font-size: 15px;
+      font-weight: 700;
       cursor: pointer;
-      font-weight: 600;
-      background: #1e88e5;
-      color: #fff;
-      transition: transform 0.05s ease, box-shadow 0.05s ease, background 0.15s ease;
+      margin-top: 6px;
     }
-
-    button:disabled {
-      background: #b0bec5;
-      cursor: not-allowed;
-      box-shadow: none;
-      transform: none;
+    button:hover {
+      background: #1d4ed8;
     }
-
-    button:not(:disabled):hover {
-      background: #1976d2;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-      transform: translateY(-1px);
+    button:active {
+      transform: scale(0.99);
     }
-
-    .hint {
-      font-size: 0.85rem;
-      color: #666;
-      margin-top: 4px;
-    }
-
-    .divider-title {
-      margin: 24px 0 8px;
-      font-size: 0.95rem;
-      font-weight: 600;
-      color: #444;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .divider-line {
-      flex: 1;
-      height: 1px;
-      background: linear-gradient(to left, transparent, #ccc, transparent);
-    }
-
-    footer {
-      margin-top: 28px;
-      font-size: 0.8rem;
-      color: #777;
+    .result {
+      margin-top: 18px;
+      padding: 14px 12px;
+      border-radius: 12px;
+      font-size: 14px;
       line-height: 1.5;
     }
-
-    @media (min-width: 720px) {
-      .grid {
-        display: grid;
-        grid-template-columns: 1.15fr 1fr;
-        gap: 16px;
-      }
+    .result.ok {
+      background: #ecfdf5;
+      color: #065f46;
+      border: 1px solid #6ee7b7;
+    }
+    .result.bad {
+      background: #fef2f2;
+      color: #991b1b;
+      border: 1px solid #fecaca;
+    }
+    .result.unknown {
+      background: #eff6ff;
+      color: #1e40af;
+      border: 1px solid #bfdbfe;
+    }
+    .result-title {
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .notes {
+      font-size: 12px;
+      color: #4b5563;
+      margin-top: 4px;
+    }
+    .footer {
+      text-align: center;
+      margin-top: 16px;
+      font-size: 11px;
+      color: #9ca3af;
     }
   </style>
 </head>
 <body>
-  <div class="page">
-    <header>
-      <h1>בדיקת תאימות eSIM למכשיר שלך</h1>
-      <p>לפני רכישת eSIM, נבדוק אם המכשיר שלך תומך – כדי לחסוך אי-נעימויות, פניות וזיכויים מיותרים.</p>
-    </header>
+  <div class="container">
+    <h1>בדיקת תאימות eSIM</h1>
+    <p class="subtitle">מלא את פרטי המכשיר ונבדוק מול בנק הטלפונים אם הוא תומך eSIM.</p>
 
-    <div class="grid">
-      <!-- כרטיס זיהוי אוטומטי -->
-      <section class="card">
-        <div class="card-title">
-          <span>זיהוי אוטומטי של המכשיר</span>
-          <span class="badge badge-auto">אוטומטי</span>
-        </div>
-        <div id="autoStatus" class="status info">
-          טוען פרטי מכשיר…  
-        </div>
-        <div id="autoDeviceDetails" class="device-details"></div>
-        <div class="hint">
-          המערכת מנסה לזהות את סוג המכשיר והמערכת תציג האם הצליחה לוודא התאמה ל-eSIM.
-        </div>
-      </section>
+    <!-- שורה 1: יצרן -->
+    <label for="brand">יצרן הטלפון</label>
+    <select id="brand">
+      <option value="">בחר יצרן...</option>
+      <option value="apple">Apple (iPhone)</option>
+      <option value="samsung">Samsung</option>
+      <option value="xiaomi">Xiaomi / Redmi / Poco</option>
+      <option value="pixel">Google Pixel</option>
+      <option value="oneplus">OnePlus</option>
+      <option value="oppo">OPPO / Realme</option>
+      <option value="motorola">Motorola</option>
+      <option value="nothing">Nothing</option>
+      <option value="other">אחר / לא בטוח</option>
+    </select>
 
-      <!-- כרטיס בחירה ידנית -->
-      <section class="card">
-        <div class="card-title">
-          <span>בחירה ידנית של דגם</span>
-          <span class="badge badge-manual">ידני</span>
-        </div>
+    <!-- שורה 2: דגם ספציפי -->
+    <label for="model">דגם ספציפי</label>
+    <input id="model" type="text" placeholder="לדוגמה: iPhone 13 / SM-S911B / A2896" />
 
-        <label class="label" for="brandSelect">יצרן המכשיר</label>
-        <select id="brandSelect">
-          <option value="">בחר יצרן…</option>
-          <option value="Apple">Apple (iPhone)</option>
-          <option value="Samsung">Samsung</option>
-          <option value="Xiaomi">Xiaomi</option>
-          <option value="Other">יצרן אחר / לא מופיע</option>
-        </select>
-
-        <label class="label" for="modelSelect">דגם המכשיר</label>
-        <select id="modelSelect" disabled>
-          <option value="">בחר תחילה יצרן…</option>
-        </select>
-
-        <button id="manualCheckBtn" disabled>בדיקת התאמה</button>
-
-        <div id="manualStatus" class="status info" style="margin-top:12px;">
-          בחר יצרן ודגם כדי לבדוק התאמה ל-eSIM.
-        </div>
-
-        <div class="hint">
-          הרשימה כאן היא דוגמה וניתנת להרחבה. ניתן לעדכן את רשימת הדגמים הנתמכים בהתאם למדיניות החברה.
-        </div>
-      </section>
+    <!-- שורה 3: הערות (מדינה / אזור / גרסה) -->
+    <label for="region">הערות (לא חובה)</label>
+    <input id="region" type="text" placeholder="לדוגמה: סין / הונג קונג / USA / Global" />
+    <div class="hint">
+      טיפ: באייפון אפשר לרשום את מספר הדגם מההגדרות (לדוגמה A2896).  
+      בסמסונג אפשר לרשום את קוד הדגם (לדוגמה SM-S911B).
     </div>
 
-    <div class="divider-title">
-      <span>מידע חשוב</span>
-      <span class="divider-line"></span>
-    </div>
+    <button id="checkBtn">בדיקת תאימות</button>
 
-    <footer>
-      <p>
-        גם אם המכשיר מזוהה כתומך, ההפעלה בפועל תלויה בגרסת מערכת ההפעלה, נעילות יצרן ותנאי המפעיל הסלולרי.
-      </p>
-      <p>
-        במכשירים שלא מזוהים אוטומטית, מומלץ לוודא ידנית את התאמת הדגם ל-eSIM לפני רכישה.
-      </p>
-    </footer>
+    <div id="result" class="result" style="display:none;"></div>
+
+    <div class="footer">
+      כלי הדגמה – התוצאה היא בגדר עזר בלבד, יש לוודא מול הגדרות המכשיר בפועל.
+    </div>
   </div>
 
   <script>
-    // ====== נתוני תאימות לדוגמה – ניתן להרחיב / לשנות לפי הצורך ======
-    const supportedDevices = {
-      "Apple": [
-        "iPhone XR",
-        "iPhone XS",
-        "iPhone XS Max",
-        "iPhone 11",
-        "iPhone 11 Pro",
-        "iPhone 11 Pro Max",
-        "iPhone SE (2020)",
-        "iPhone 12",
-        "iPhone 12 Pro",
-        "iPhone 12 Pro Max",
-        "iPhone 13",
-        "iPhone 13 Pro",
-        "iPhone 13 Pro Max",
-        "iPhone 14",
-        "iPhone 14 Pro",
-        "iPhone 15",
-        "iPhone 15 Pro"
-      ],
-      "Samsung": [
-        "Galaxy S20",
-        "Galaxy S21",
-        "Galaxy S22",
-        "Galaxy S23",
-        "Galaxy S24",
-        "Galaxy Note 20"
-      ],
-      "Xiaomi": [
-        "Mi 11",
-        "Mi 12",
-        "Redmi Note 13"
-      ]
-    };
+    // ----- "בנק הטלפונים" – כאן מגדירים את כל הדגמים -----
+    // מבנה כל אובייקט:
+    // brand: יצרן (apple/samsung/...)
+    // model: שם דגם / קוד דגם / מספר דגם (normalize לאותיות גדולות בלי רווחים)
+    // region: 'GLOBAL' / 'CN' / 'HK' / 'US' / 'OTHER' ...
+    // esim: true/false
+    // note: טקסט הסבר ללקוח (יופיע בתוצאה)
 
-    function isDeviceSupported(brand, model) {
-      if (!brand || !model) return null;
-      const list = supportedDevices[brand];
-      if (!list) return false;
-      return list.includes(model);
+    const deviceDb = [
+      // ===== APPLE =====
+      { brand: 'apple', model: 'IPHONEXR', region: 'GLOBAL', esim: true,  note: 'iPhone XR תומך eSIM בכל הדגמים, למעט דגמי סין/הונג קונג.' },
+      { brand: 'apple', model: 'IPHONEXR', region: 'CN',     esim: false, note: 'דגם סין/הונג קונג של iPhone XR ללא eSIM.' },
+
+      { brand: 'apple', model: 'IPHONE11', region: 'GLOBAL', esim: true,  note: 'כל דגמי iPhone 11 תומכים eSIM למעט גרסאות סין/הונג קונג.' },
+      { brand: 'apple', model: 'IPHONE11', region: 'CN',     esim: false, note: 'דגם סין/הונג קונג של iPhone 11 ללא eSIM.' },
+
+      { brand: 'apple', model: 'IPHONE13', region: 'GLOBAL', esim: true,  note: 'כל דגמי iPhone 13 (כולל Mini/Pro/Max) תומכים eSIM, למעט דגמי סין/הונג קונג.' },
+      { brand: 'apple', model: 'IPHONE13', region: 'CN',     esim: false, note: 'דגם סין/הונג קונג של iPhone 13 ללא eSIM (2x SIM פיזי).' },
+
+      { brand: 'apple', model: 'A2896',    region: 'GLOBAL', esim: true,  note: 'iPhone 15 (מספר דגם A2896) – תומך eSIM.' },
+
+      // SE לדוגמה
+      { brand: 'apple', model: 'IPHONESE2', region: 'GLOBAL', esim: true, note: 'iPhone SE 2020 תומך eSIM בכל הדגמים.' },
+
+      // ===== SAMSUNG =====
+      // Galaxy S20
+      { brand: 'samsung', model: 'SMG980F', region: 'GLOBAL', esim: true,  note: 'Galaxy S20 (SM-G980F) תומך eSIM.' },
+      { brand: 'samsung', model: 'SMG9810', region: 'CN',     esim: false, note: 'Galaxy S20 דגם סין (SM-G9810) ללא eSIM.' },
+
+      // Galaxy S23 – דוגמה
+      { brand: 'samsung', model: 'SMS911B', region: 'GLOBAL', esim: true,  note: 'Galaxy S23 (SM-S911B) תומך eSIM.' },
+      { brand: 'samsung', model: 'SMS9110', region: 'CN',     esim: false, note: 'Galaxy S23 (SM-S9110) דגם סין – ללא eSIM.' },
+
+      // Galaxy S10 – לא תומך
+      { brand: 'samsung', model: 'SMS10', region: 'GLOBAL', esim: false, note: 'סדרת Galaxy S10 אינה תומכת eSIM (למעט גרסאות מיוחדות בודדות).' },
+
+      // ===== XIAOMI / REDMI / POCO =====
+      { brand: 'xiaomi', model: 'XIAOMI13',  region: 'GLOBAL', esim: true,  note: 'Xiaomi 13 תומך eSIM בחלק גדול מהשווקים הגלובליים.' },
+      { brand: 'xiaomi', model: 'REDMINOTE11', region: 'GLOBAL', esim: false, note: 'רוב סדרות Redmi Note אינן תומכות eSIM.' },
+      { brand: 'xiaomi', model: 'POCOF3',    region: 'GLOBAL', esim: false, note: 'POCO F3 ללא תמיכת eSIM.' },
+
+      // ===== GOOGLE PIXEL =====
+      { brand: 'pixel', model: 'PIXEL4',   region: 'GLOBAL', esim: true, note: 'כל דגמי Google Pixel 2 ומעלה תומכים eSIM.' },
+      { brand: 'pixel', model: 'PIXEL7PRO',region: 'GLOBAL', esim: true, note: 'Google Pixel 7 Pro – תומך eSIM.' },
+
+      // ===== ONEPLUS =====
+      { brand: 'oneplus', model: 'ONEPLUS8',  region: 'GLOBAL', esim: true,  note: 'OnePlus 8 תומך eSIM בחלק מהשווקים.' },
+      { brand: 'oneplus', model: 'ONEPLUS7T', region: 'GLOBAL', esim: false, note: 'OnePlus 7T ללא eSIM.' },
+
+      // ===== OPPO / REALME (דוגמה) =====
+      { brand: 'oppo', model: 'FINDX5', region: 'GLOBAL', esim: true,  note: 'OPPO Find X5 – תומך eSIM בחלק מהגרסאות הגלובליות.' },
+      { brand: 'oppo', model: 'REX5',   region: 'GLOBAL', esim: false, note: 'רוב דגמי Realme ללא eSIM.' },
+
+      // ===== MOTOROLA =====
+      { brand: 'motorola', model: 'EDGE30PRO', region: 'GLOBAL', esim: true, note: 'Motorola Edge 30 Pro – תומך eSIM.' },
+      { brand: 'motorola', model: 'MOTOG52',   region: 'GLOBAL', esim: false, note: 'רוב דגמי Moto G ללא eSIM.' },
+
+      // ===== NOTHING =====
+      { brand: 'nothing', model: 'NOTHINGPHONE1', region: 'GLOBAL', esim: false, note: 'Nothing Phone (1) – ללא eSIM.' },
+      { brand: 'nothing', model: 'NOTHINGPHONE2', region: 'GLOBAL', esim: true,  note: 'Nothing Phone (2) – תומך eSIM.' }
+    ];
+
+    // פונקציה לנרמול מחרוזת: אותיות גדולות, בלי רווחים וסימני מפריד בסיסיים
+    function normalize(str) {
+      return (str || "")
+        .toString()
+        .toUpperCase()
+        .replace(/[\s\-_.]/g, '');
     }
 
-    // ====== זיהוי אוטומטי דרך userAgent ======
-    function detectDeviceFromUA() {
-      const ua = navigator.userAgent || "";
-      let brand = "לא ידוע";
-      let model = "לא ידוע";
-      let os = "לא ידוע";
+    // פונקציה לפענוח האיזור שהלקוח כתב (טקסט חופשי) לאחד הערכים שלנו
+    function detectRegion(rawRegion) {
+      const r = (rawRegion || '').toLowerCase();
 
-      if (/iPhone/i.test(ua)) {
-        brand = "Apple";
-        model = "iPhone"; // נבקש מהמשתמש לבחור דגם מדויק ידנית
-        os = "iOS";
-      } else if (/Android/i.test(ua) && /Samsung|SM-/i.test(ua)) {
-        brand = "Samsung";
-        os = "Android";
-        const match = ua.match(/SM-[A-Za-z0-9]+/);
-        model = match ? match[0] : "Galaxy";
-      } else if (/Android/i.test(ua) && /Xiaomi|Mi |Redmi/i.test(ua)) {
-        brand = "Xiaomi";
-        os = "Android";
-        const match = ua.match(/Mi [0-9A-Za-z]+|Redmi [0-9A-Za-z]+/);
-        model = match ? match[0] : "מכשיר Xiaomi";
-      } else if (/Android/i.test(ua)) {
-        brand = "Android";
-        model = "מכשיר אנדרואיד";
-        os = "Android";
+      if (!r) return 'ANY';
+
+      if (r.includes('china') || r.includes('סין') || r.includes('cn')) {
+        return 'CN';
+      }
+      if (r.includes('hong') || r.includes('hk') || r.includes('הונג')) {
+        return 'HK';
+      }
+      if (r.includes('usa') || r.includes('us') || r.includes('ארה')) {
+        return 'US';
+      }
+      if (r.includes('global') || r.includes('גלובל') || r.includes('world')) {
+        return 'GLOBAL';
       }
 
-      return { brand, model, os };
+      return 'OTHER';
     }
 
-    function setStatus(element, type, text) {
-      element.classList.remove("ok", "error", "info");
-      if (type === "ok") element.classList.add("ok");
-      else if (type === "error") element.classList.add("error");
-      else element.classList.add("info");
-      element.textContent = text;
-    }
+    function checkDevice() {
+      const brand = document.getElementById('brand').value;
+      const modelInput = document.getElementById('model').value;
+      const regionInput = document.getElementById('region').value;
 
-    function updateAutoSection() {
-      const autoStatus = document.getElementById("autoStatus");
-      const autoDeviceDetails = document.getElementById("autoDeviceDetails");
+      const resultBox = document.getElementById('result');
+      resultBox.style.display = 'none';
+      resultBox.className = 'result';
 
-      const device = detectDeviceFromUA();
-
-      // אם לא הצלחנו לזהות כמעט כלום
-      if (device.brand === "לא ידוע") {
-        setStatus(
-          autoStatus,
-          "info",
-          "לא הצלחנו לזהות את דגם המכשיר שלך באופן אוטומטי. מומלץ לבחור דגם ידנית."
-        );
-        autoDeviceDetails.textContent = "";
+      if (!brand || !modelInput.trim()) {
+        resultBox.style.display = 'block';
+        resultBox.classList.add('bad');
+        resultBox.innerHTML = '<div class="result-title">חסר מידע</div>יש לבחור יצרן ולהקליד דגם ספציפי לפני הבדיקה.';
         return;
       }
 
-      autoDeviceDetails.textContent =
-        "יצרן מזוהה: " + device.brand +
-        " | דגם משוער: " + device.model +
-        (device.os !== "לא ידוע" ? " | מערכת הפעלה: " + device.os : "");
+      const normalizedModel = normalize(modelInput);
+      const region = detectRegion(regionInput);
 
-      // אם זיהינו Apple iPhone אבל בלי דגם מדויק – נבקש מהמשתמש לבחור דגם
-      if (device.brand === "Apple" && device.model === "iPhone") {
-        setStatus(
-          autoStatus,
-          "info",
-          "זיהינו שאתה משתמש ב-iPhone. רוב דגמי iPhone החדשים תומכים ב-eSIM. כדי לוודא, בחר דגם iPhone מדויק בחלק הידני."
-        );
+      // חיפוש בבנק
+      let candidates = deviceDb.filter(d => d.brand === brand && normalize(d.model) === normalizedModel);
+
+      if (candidates.length === 0) {
+        // אם לא מצאנו לפי הדגם המדויק – ננסה חיפוש "גמיש" קטן (למשל IPHONE 13 PRO → IPHONE13)
+        const modelShort = normalizedModel.replace(/PRO(MAX)?|PLUS|ULTRA|MINI/g, '');
+        candidates = deviceDb.filter(d => d.brand === brand && normalize(d.model).includes(modelShort));
+      }
+
+      if (candidates.length === 0) {
+        resultBox.style.display = 'block';
+        resultBox.classList.add('unknown');
+        resultBox.innerHTML =
+          '<div class="result-title">לא מצאנו את הדגם במאגר</div>' +
+          '<div>ייתכן שהדגם חדש, נדיר, או שאיות הדגם שונה. מומלץ לבדוק ידנית בהגדרות המכשיר אם קיימת אפשרות להוספת eSIM או שורת EID.</div>';
         return;
       }
 
-      const supported = isDeviceSupported(device.brand, device.model);
-
-      if (supported === true) {
-        setStatus(
-          autoStatus,
-          "ok",
-          "המכשיר שזוהה תומך ב-eSIM. אפשר להמשיך לרכישה בביטחון ✅"
-        );
-      } else if (supported === false) {
-        setStatus(
-          autoStatus,
-          "error",
-          "המכשיר שזוהה אינו מופיע כרגע ברשימת המכשירים התומכים ב-eSIM. לא מומלץ להמשיך לרכישה."
-        );
+      // אם המשתמש נתן איזור (CN/HK/US/...), נעדיף התאמה אליו
+      let match = null;
+      if (region !== 'ANY') {
+        match = candidates.find(c => c.region === region) || candidates.find(c => c.region === 'GLOBAL') || candidates[0];
       } else {
-        setStatus(
-          autoStatus,
-          "info",
-          "זיהינו מכשיר, אך לא הצלחנו לוודא בוודאות אם הוא תומך ב-eSIM. מומלץ לבחור דגם מדויק בחלק הידני."
-        );
+        match = candidates.find(c => c.region === 'GLOBAL') || candidates[0];
+      }
+
+      resultBox.style.display = 'block';
+
+      if (match.esim) {
+        resultBox.classList.add('ok');
+        resultBox.innerHTML =
+          '<div class="result-title">כנראה שהמכשיר תומך eSIM ✅</div>' +
+          '<div>זיהינו: ' + brand.toUpperCase() + ' – דגם: ' + modelInput + '</div>' +
+          (match.note ? '<div class="notes">' + match.note + '</div>' : '') +
+          '<div class="notes">מומלץ עדיין לוודא בהגדרות המכשיר בפועל (חיפוש EID / הוספת eSIM).</div>';
+      } else {
+        resultBox.classList.add('bad');
+        resultBox.innerHTML =
+          '<div class="result-title">כנראה שהמכשיר לא תומך eSIM ❌</div>' +
+          '<div>זיהינו: ' + brand.toUpperCase() + ' – דגם: ' + modelInput + '</div>' +
+          (match.note ? '<div class="notes">' + match.note + '</div>' : '') +
+          '<div class="notes">אם אתה בטוח שהמכשיר כן תומך, ייתכן שמדובר בגרסה אחרת (אזור/מדינה). בדוק שוב את הדגם/הגרסה.</div>';
       }
     }
 
-    // ====== בחירה ידנית ======
-    function populateModels(brand) {
-      const modelSelect = document.getElementById("modelSelect");
-      modelSelect.innerHTML = "";
-
-      if (!brand) {
-        modelSelect.disabled = true;
-        const opt = document.createElement("option");
-        opt.value = "";
-        opt.textContent = "בחר תחילה יצרן…";
-        modelSelect.appendChild(opt);
-        return;
-      }
-
-      modelSelect.disabled = false;
-
-      const placeholder = document.createElement("option");
-      placeholder.value = "";
-      placeholder.textContent = "בחר דגם…";
-      modelSelect.appendChild(placeholder);
-
-      if (brand === "Other") {
-        const opt = document.createElement("option");
-        opt.value = "Unknown";
-        opt.textContent = "דגם לא מופיע ברשימה / אחר";
-        modelSelect.appendChild(opt);
-        return;
-      }
-
-      const models = supportedDevices[brand] || [];
-      models.forEach(m => {
-        const opt = document.createElement("option");
-        opt.value = m;
-        opt.textContent = m;
-        modelSelect.appendChild(opt);
-      });
-
-      const otherOpt = document.createElement("option");
-      otherOpt.value = "Unknown";
-      otherOpt.textContent = "דגם אחר / לא בטוח";
-      modelSelect.appendChild(otherOpt);
-    }
-
-    function setupManualSection() {
-      const brandSelect = document.getElementById("brandSelect");
-      const modelSelect = document.getElementById("modelSelect");
-      const manualBtn = document.getElementById("manualCheckBtn");
-      const manualStatus = document.getElementById("manualStatus");
-
-      brandSelect.addEventListener("change", () => {
-        populateModels(brandSelect.value);
-        manualBtn.disabled = !brandSelect.value;
-        setStatus(
-          manualStatus,
-          "info",
-          "בחר דגם ואז לחץ על 'בדיקת התאמה'."
-        );
-      });
-
-      modelSelect.addEventListener("change", () => {
-        manualBtn.disabled = !brandSelect.value || !modelSelect.value;
-      });
-
-      manualBtn.addEventListener("click", () => {
-        const brand = brandSelect.value;
-        const model = modelSelect.value;
-
-        if (!brand || !model) {
-          setStatus(
-            manualStatus,
-            "info",
-            "יש לבחור גם יצרן וגם דגם כדי לבדוק התאמה."
-          );
-          return;
-        }
-
-        if (brand === "Other" || model === "Unknown") {
-          setStatus(
-            manualStatus,
-            "info",
-            "הדגם שבחרת לא מופיע ברשימת המכשירים שלנו. מומלץ לבדוק ידנית באתר היצרן או במוקד השירות לפני רכישה."
-          );
-          return;
-        }
-
-        const supported = isDeviceSupported(brand, model);
-
-        if (supported) {
-          setStatus(
-            manualStatus,
-            "ok",
-            "המכשיר " + brand + " " + model + " מופיע כמכשיר התומך ב-eSIM. אפשר להמשיך לרכישה ✅"
-          );
-        } else {
-          setStatus(
-            manualStatus,
-            "error",
-            "המכשיר " + brand + " " + model + " אינו מופיע ברשימת המכשירים התומכים ב-eSIM. לא מומלץ להמשיך לרכישה."
-          );
-        }
-      });
-    }
-
-    // ====== הפעלה ======
-    document.addEventListener("DOMContentLoaded", function () {
-      updateAutoSection();
-      setupManualSection();
-    });
+    document.getElementById('checkBtn').addEventListener('click', checkDevice);
   </script>
 </body>
 </html>
